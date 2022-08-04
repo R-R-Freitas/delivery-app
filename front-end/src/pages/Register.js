@@ -7,16 +7,20 @@ function Register() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [isDisabled, setIsDisabled] = useState(true);
-  // const [registerFailed, setRegisterFailed] = useState(false);
+  const [registerFailed, setRegisterFailed] = useState(false);
 
   const handleSubmit = async () => {
-    await api.post('/register', { name, email, password });
+    try {
+      await api.post('/register', { name, email, password });
 
-    setName('');
-    setEmail('');
-    setPassword('');
+      setName('');
+      setEmail('');
+      setPassword('');
 
-    return <Navigate to="/customer/products" />;
+      return <Navigate to="/customer/products" />;
+    } catch (error) {
+      setRegisterFailed(true);
+    }
   };
 
   useEffect(() => {
@@ -76,12 +80,12 @@ function Register() {
           CADASTRAR
         </button>
       </form>
-      {/* { registerFailed ? (
+      { registerFailed ? (
         <p data-testid="common_register__element-invalid_register ">
-          Dados inválidos. Por favor, tente novamente.
+          Dados já cadastrados.
         </p>
       )
-        : null } */}
+        : null }
     </div>
   );
 }
