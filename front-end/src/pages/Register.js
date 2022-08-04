@@ -1,11 +1,25 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
+import { MIN_LENGTH_NAME, MIN_LENGTH_PASSWORD } from '../services/constants';
 
 function Register() {
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  // const [registrationFailure, setRegistrationFailure] = useState(false);
+  const [isDisabled, setIsDisabled] = useState(true);
+  // const [registerFailed, setRegisterFailed] = useState(false);
 
+  useEffect(() => {
+    const validName = name.length >= MIN_LENGTH_NAME;
+    const emailFormat = /\S+@\S+\.+/;
+    const validEmail = emailFormat.test(email);
+    const validPassword = password.length >= MIN_LENGTH_PASSWORD;
+
+    if (validName && validEmail && validPassword) return setIsDisabled(false);
+
+    return setIsDisabled(true);
+  }, [email, name, password]);
+
+  console.log(registerFailed);
   return (
     <div>
       <h1>Cadastro</h1>
@@ -47,11 +61,12 @@ function Register() {
           data-testid="common_register__button-register"
           type="submit"
           onClick={ () => console.log('enviou os dados para o backend') }
+          disabled={ isDisabled }
         >
           CADASTRAR
         </button>
       </form>
-      {/* { registrationFailure ? (
+      {/* { registerFailed ? (
         <p data-testid="common_register__element-invalid_register ">
           Dados inválidos. Por favor, tente novamente.
         </p>
