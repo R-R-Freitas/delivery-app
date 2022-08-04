@@ -1,4 +1,8 @@
-const MIN_LENGTH_NAME = 12;
-const MIN_LENGTH_PASSWORD = 6;
+import axios from 'axios';
 
-export { MIN_LENGTH_NAME, MIN_LENGTH_PASSWORD };
+export const MIN_LENGTH_NAME = 12;
+export const MIN_LENGTH_PASSWORD = 6;
+
+export const api = axios.create({
+  baseURL: `http://localhost:${process.env.REACT_APP_BACKEND_PORT || '3001'}`,
+});

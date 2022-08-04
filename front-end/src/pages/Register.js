@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import { Navigate } from 'react-router-dom';
 import { MIN_LENGTH_NAME, MIN_LENGTH_PASSWORD } from '../services/constants';
 
 function Register() {
@@ -7,6 +8,16 @@ function Register() {
   const [password, setPassword] = useState('');
   const [isDisabled, setIsDisabled] = useState(true);
   // const [registerFailed, setRegisterFailed] = useState(false);
+
+  const handleSubmit = async () => {
+    await api.post('/register', { name, email, password });
+
+    setName('');
+    setEmail('');
+    setPassword('');
+
+    return <Navigate to="/customer/products" />;
+  };
 
   useEffect(() => {
     const validName = name.length >= MIN_LENGTH_NAME;
@@ -19,7 +30,6 @@ function Register() {
     return setIsDisabled(true);
   }, [email, name, password]);
 
-  console.log(registerFailed);
   return (
     <div>
       <h1>Cadastro</h1>
@@ -50,7 +60,7 @@ function Register() {
           Senha
           <input
             data-testid="common_register__input-password"
-            type="text"
+            type="password"
             value={ password }
             onChange={ ({ target: { value } }) => setPassword(value) }
             placeholder="Senha"
@@ -59,8 +69,8 @@ function Register() {
 
         <button
           data-testid="common_register__button-register"
-          type="submit"
-          onClick={ () => console.log('enviou os dados para o backend') }
+          type="button"
+          onClick={ handleSubmit }
           disabled={ isDisabled }
         >
           CADASTRAR
