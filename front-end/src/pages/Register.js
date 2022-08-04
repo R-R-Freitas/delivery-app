@@ -1,16 +1,16 @@
 import React, { useState } from 'react';
 
-const Register = () => {
+function Register() {
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const [registrationFailure, setRegistrationFailure] = useState(false);
+  // const [registrationFailure, setRegistrationFailure] = useState(false);
 
   return (
     <div>
       <h1>Cadastro</h1>
       <form>
-        <label htmlFor='name-input'>
+        <label htmlFor="name-input">
           Nome
           <input
             data-testid="common_register__input-name"
@@ -21,7 +21,7 @@ const Register = () => {
           />
         </label>
 
-        <label htmlFor='email-input'>
+        <label htmlFor="email-input">
           Email
           <input
             data-testid="common_register__input-email"
@@ -31,8 +31,8 @@ const Register = () => {
             placeholder="seu-email@site.com.br"
           />
         </label>
-        
-        <label htmlFor='password-input'>
+
+        <label htmlFor="password-input">
           Senha
           <input
             data-testid="common_register__input-password"
@@ -51,13 +51,12 @@ const Register = () => {
           CADASTRAR
         </button>
       </form>
-      { registrationFailure ? (
+      {/* { registrationFailure ? (
         <p data-testid="common_register__element-invalid_register ">
           Dados inválidos. Por favor, tente novamente.
         </p>
-        )
-        : null
-      }
+      )
+        : null } */}
     </div>
   );
 }
