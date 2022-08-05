@@ -1,4 +1,5 @@
 const { user } = require('../database/models');
+const errorObject = require('../utils/errorObject');
 
 const create = async (name, email, password, role) => {
   const newUser = await user.create({ name, email, password, role });
@@ -6,6 +7,17 @@ const create = async (name, email, password, role) => {
   return userWithoutPassword;
 };
 
+const getByEmailOrName = async (name, email) => {
+  const userByEmailOrName = await user.findOne({ where: {
+    $or: [
+      { name },
+      { email },
+    ],
+  } });
+  if (userByEmailOrName) throw errorObject(409, 'User already registered');
+};
+
 module.exports = {
   create,
+  getByEmailOrName,
 };
