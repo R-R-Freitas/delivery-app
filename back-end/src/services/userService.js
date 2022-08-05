@@ -1,6 +1,5 @@
 const { user } = require('../database/models');
 const errorObject = require('../utils/errorObject');
-const md5 = require('md5');
 
 const create = async (name, email, password, role) => {
   const newUser = await user.create({ name, email, password, role });
@@ -19,7 +18,7 @@ const getByEmailOrName = async (name, email) => {
 };
 
 const login = async (email, password) => {
-  const loggedUser = await user.findOne({ where: { email }});
+  const loggedUser = await user.findOne({ where: { email } });
   if (!loggedUser || password !== loggedUser.password) {
     throw errorObject(404, 'Invalid email or password');
   }
@@ -30,4 +29,5 @@ const login = async (email, password) => {
 module.exports = {
   create,
   getByEmailOrName,
+  login,
 };
