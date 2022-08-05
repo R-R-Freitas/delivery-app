@@ -30,7 +30,8 @@ services:
       - MYSQL_USER=root
       - MYSQL_PASSWORD=123456
       - MYSQL_DB_NAME=delivery-app
-      - MYSQL_HOST=localhost
+      - MYSQL_HOST=database
+      - HOSTNAME=database
       - MYSQL_PORT=3306
     healthcheck:
       test: ["CMD", "lsof", "-t", "-i:3001"]
