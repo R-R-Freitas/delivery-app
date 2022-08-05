@@ -1,5 +1,5 @@
 const Joi = require('joi');
-const errorObject = require('../')
+const errorObject = require('../utils/errorObject');
 
 const newUserSchema = Joi.object({
   name: Joi.string().required(),
@@ -15,3 +15,5 @@ const registerValidations = (req, _res, next) => {
   req.body.role = 'customer';
   next();
 };
+
+module.exports = registerValidations;
