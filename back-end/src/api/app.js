@@ -1,6 +1,7 @@
 const express = require('express');
 const errorMiddleware = require('../middlewares/errorMiddleware');
 const register = require('../routes/register');
+const login = require('../routes/login');
 
 const app = express();
 
@@ -14,6 +15,7 @@ const accessControl = (_req, res, next) => {
 app.use(express.json());
 app.use(accessControl);
 
+app.use('/login', login);
 app.use('/register', register);
 
 app.get('/coffee', (_req, res) => res.status(418).end());
