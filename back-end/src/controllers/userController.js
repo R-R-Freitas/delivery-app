@@ -14,7 +14,7 @@ const getByEmailOrName = async (req, _res, next) => {
   next();
 };
 
-const login = async (req, _res, next) => {
+const login = async (req, res, _next) => {
   const { email, hash: password } = req.body;
   const loggedUser = userService.login(email, password);
   const token = generateJWT(loggedUser);
