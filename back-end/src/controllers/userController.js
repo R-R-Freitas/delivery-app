@@ -1,4 +1,5 @@
 const userService = require('../services/userService');
+const generateJWT = require('../utils/generateJWT');
 
 const create = async (req, res, _next) => {
   const { name, email, hash: password, role } = req.body;

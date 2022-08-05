@@ -11,7 +11,7 @@ const registerValidations = (req, _res, next) => {
   const validRegister = newUserSchema.validate(req.body);
   if (validRegister.error) {
     throw errorObject(400, validRegister.error.details[0].message);
-  };
+  }
   req.body.role = 'customer';
   next();
 };

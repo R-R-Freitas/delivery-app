@@ -9,9 +9,8 @@ const router = express.Router();
 router.post('/',
   [
     rescue(registerValidations),
-    rescue(hashPassword)
+    rescue(hashPassword),
   ],
-  rescue(user.create)
-);
+  rescue(user.create));
 
 module.exports = router;
