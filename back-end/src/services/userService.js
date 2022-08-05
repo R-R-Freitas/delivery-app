@@ -1,6 +1,6 @@
+const { Op } = require('sequelize');
 const { user } = require('../database/models');
 const errorObject = require('../utils/errorObject');
-const { Op } = require('sequelize');
 
 const create = async (name, email, password, role) => {
   const newUser = await user.create({ name, email, password, role });
