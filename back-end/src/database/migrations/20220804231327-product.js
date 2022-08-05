@@ -9,16 +9,20 @@ module.exports = {
         primaryKey: true,
         type: Sequelize.INTEGER
       },
+      name: {
+        type: Sequelize.STRING,
+      },
       price: {
         type: Sequelize.DECIMAL,
       },
-      name: {
+      urlImage: {
         type: Sequelize.STRING,
+        field: 'url_image',
       },
     });
   },
 
-  async down (queryInterface, Sequelize) {
+  async down (queryInterface) {
     await queryInterface.dropTable('products');
   }
 };
