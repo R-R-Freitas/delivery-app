@@ -26,11 +26,12 @@ services:
         condition: service_healthy
     environment:
       - PORT=3001
-      - JWT_SECRET=jwt_secret
-      - DB_USER=root
-      - DB_PASS=123456
-      - DB_HOST=database
-      - DB_PORT=3306
+      - JWT_SECRET=jwtSecret
+      - MYSQL_USER=root
+      - MYSQL_PASSWORD=123456
+      - MYSQL_DB_NAME=delivery-app
+      - MYSQL_HOST=localhost
+      - MYSQL_PORT=3306
     healthcheck:
       test: ["CMD", "lsof", "-t", "-i:3001"]
       timeout: 10s
