@@ -1,3 +1,6 @@
+const Joi = require('joi');
+const errorObject = require('../utils/errorObject');
+
 const loginSchema = Joi.object({
   email: Joi.string().email().required(),
   password: Joi.string().min(6).required(),
@@ -5,7 +8,7 @@ const loginSchema = Joi.object({
 
 const loginValidations = (req, _res, next) => {
   const validLogin = loginSchema.validate(req.body);
-  if (validLogin.error) throw errorObject(400, validLogin.error.details[0].message)
+  if (validLogin.error) throw errorObject(400, validLogin.error.details[0].message);
   next();
 };
 
