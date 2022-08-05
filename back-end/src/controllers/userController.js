@@ -12,7 +12,7 @@ const getByEmailOrName = async (req, _res, next) => {
   const { name, email } = req.body;
   await userService.getByEmailOrName(name, email);
   next();
-}
+};
 
 module.exports = {
   create,
