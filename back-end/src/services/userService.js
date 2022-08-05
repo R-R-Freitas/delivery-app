@@ -21,7 +21,7 @@ const getByEmailOrName = async (name, email) => {
 const login = async (email, password) => {
   const loggedUser = await user.findOne({ where: { email }});
   if (!loggedUser || password !== loggedUser.password) {
-    throw errorObject(400, 'Invalid email or password');
+    throw errorObject(404, 'Invalid email or password');
   }
   const { password: noPassword, ...userWithoutPassword } = loggedUser.dataValues;
   return userWithoutPassword;
