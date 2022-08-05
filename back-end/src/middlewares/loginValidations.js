@@ -12,6 +12,4 @@ const loginValidations = (req, _res, next) => {
   next();
 };
 
-module.exports = {
-  loginValidations,
-};
+module.exports = loginValidations;
