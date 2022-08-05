@@ -9,6 +9,7 @@ const router = express.Router();
 router.post('/',
   [
     rescue(registerValidations),
+    rescue(user.getByEmailOrName),
     rescue(hashPassword),
   ],
   rescue(user.create));

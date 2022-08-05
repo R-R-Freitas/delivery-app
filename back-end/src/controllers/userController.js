@@ -8,6 +8,13 @@ const create = async (req, res, _next) => {
   return res.status(201).json({ ...user, token });
 };
 
+const getByEmailOrName = async (req, _res, next) => {
+  const { name, email } = req.body;
+  await userService.getByEmailOrName(name, email);
+  next();
+};
+
 module.exports = {
   create,
+  getByEmailOrName,
 };
