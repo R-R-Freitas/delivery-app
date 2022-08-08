@@ -1,25 +1,45 @@
 import React, { useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { api } from '../services/constants';
+import setToken from '../services/functions';
 
 function ProductsContainer() {
+  const navigate = useNavigate();
+
   const [products, setProducts] = useState([]);
   const [quantity, setQuantity] = useState(0);
-
-  useEffect(() => {
-    const getProducts = async () => {
-      const { data } = await api.get('/product');
-
-      return setProducts(data);
-    };
-
-    getProducts();
-  }, []);
 
   const changeQuantity = (action) => {
     if (action === 'decrease') return setQuantity((currValue) => currValue - 1);
 
     return setQuantity((currValue) => currValue + 1);
   };
+
+  useEffect(() => {
+    const token = localStorage.getItem('token');
+
+    if (!token) return navigate('/');
+
+    setToken(token);
+  }, []);
+
+  useEffect(() => {
+    const getProducts = async () => {
+      try {
+        const { data } = await api.get('/product');
+
+        return setProducts(data);
+      } catch (error) {
+        console.log(error);
+
+        localStorage.clear();
+
+        return navigate('/');
+      }
+    };
+
+    getProducts();
+  }, []);
 
   return (
     <div>

@@ -3,6 +3,15 @@ import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 
 function Navbar({ item1, item2, item3 }) {
+  const navigate = useNavigate();
+  const name = localStorage.getItem('name');
+
+  const handleLogout = () => {
+    localStorage.clear();
+
+    return navigate('/');
+  };
+
   return (
     <div>
       <Link
@@ -19,9 +28,15 @@ function Navbar({ item1, item2, item3 }) {
       </Link>
       <Link to="/">{ item3 }</Link>
       <p data-testid="customer_products__element-navbar-user-full-name">
-        Nome do usuário
+        { name }
       </p>
-      <Link to="/" data-testid="customer_products__element-navbar-link-logout">Sair</Link>
+      <button
+        type="button"
+        data-testid="customer_products__element-navbar-link-logout"
+        onChange={ handleLogout }
+      >
+        Sair
+      </button>
     </div>
   );
 }
