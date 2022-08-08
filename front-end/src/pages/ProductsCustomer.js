@@ -12,11 +12,10 @@ function ProductsCustomer() {
   const [products, setProducts] = useState([]);
 
   const dataProducts = useSelector(({ productsData }) => productsData);
-  console.log(Object.entries(dataProducts).map((product) => product[1]));
 
   const totalCar = () => {
     const arrProducts = Object.entries(dataProducts).map((product) => product[1]);
-    console.log(arrProducts);
+
     const sum = arrProducts.reduce((acc, product) => {
       const totalValueProduct = product.quantity * product.priceProduct;
 
