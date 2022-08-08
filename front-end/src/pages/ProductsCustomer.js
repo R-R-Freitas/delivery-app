@@ -1,21 +1,37 @@
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { useSelector } from 'react-redux';
 import Navbar from '../components/Navbar';
 import ProductContainer from '../components/ProductContainer';
 import { api } from '../services/constants';
-// import setToken from '../services/functions';
+import setToken from '../services/functions';
 
 function ProductsCustomer() {
   const navigate = useNavigate();
 
   const [products, setProducts] = useState([]);
 
+  const dataProducts = useSelector(({ productsData }) => productsData);
+  console.log(Object.entries(dataProducts).map((product) => product[1]));
+
+  const totalCar = () => {
+    const arrProducts = Object.entries(dataProducts).map((product) => product[1]);
+    console.log(arrProducts);
+    const sum = arrProducts.reduce((acc, product) => {
+      const totalValueProduct = product.quantity * product.priceProduct;
+
+      return acc + totalValueProduct;
+    }, 0);
+
+    return sum.toFixed(2).replace('.', ',');
+  };
+
   useEffect(() => {
-    // const token = localStorage.getItem('token');
+    const token = localStorage.getItem('token');
 
-    // if (!token) return navigate('/');
+    if (!token) return navigate('/');
 
-    // setToken(token);
+    setToken(token);
 
     const getProducts = async () => {
       try {
@@ -42,8 +58,14 @@ function ProductsCustomer() {
         { products?.map((product) => (
           <ProductContainer key={ product.id } product={ product } />
         ))}
-        <button type="button" data-testid="customer_products__checkout-bottom-value">
-          Ver Carrinho
+        <button
+          type="button"
+          data-testid="customer_products__checkout-bottom-value"
+          onClick={ () => navigate('/customer/checkout') }
+        >
+          {`Ver Carrinho: R$
+          ${totalCar()}
+          `}
         </button>
       </div>
     </div>

@@ -1,17 +1,15 @@
 import { SET_QUANTITY } from '../../services/constants';
 
-const INITIAL_STATE = {
-  products: {},
-};
+const INITIAL_STATE = {};
 
 const productsData = (state = INITIAL_STATE, actions) => {
-  const { type, payload: { id, qtd } } = actions;
+  const { type, payload } = actions;
 
   switch (type) {
   case SET_QUANTITY:
     return ({
       ...state,
-      [id]: qtd,
+      [payload.id]: { quantity: payload.quantity, priceProduct: payload.priceProduct },
     });
   default:
     return state;
