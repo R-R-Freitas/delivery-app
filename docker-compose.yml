@@ -21,6 +21,7 @@ services:
       - 3001:3001
     platform: linux/x86_64
     working_dir: /backend
+    command: npm run dev
     depends_on:
       database:
         condition: service_healthy
