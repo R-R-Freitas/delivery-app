@@ -35,12 +35,9 @@ function ProductsCustomer() {
     const getProducts = async () => {
       try {
         const { data } = await api.get('/product');
-        console.log(data);
 
         return setProducts(data);
       } catch (error) {
-        console.log(error);
-
         localStorage.clear();
 
         return navigate('/');
