@@ -1,19 +1,36 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { MIN_LENGTH_PASSWORD } from '../../services/constants';
+import signIn from '../../services/fechApi';
 
 function Login() {
   const navigate = useNavigate();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [error, setError] = useState(false);
 
-  const errorMessage = false;
+  console.log(email);
+  console.log(password);
+
   const emailRegex = /\S+@\S+\.+/;
 
   const btnIsValid = emailRegex.test(email) && password.length >= MIN_LENGTH_PASSWORD;
 
   const routeChange = () => {
     navigate('/register');
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    const user = await signIn(email, password);
+
+    if (user) {
+      localStorage.setItem('user', JSON.stringify(user));
+      setError(false);
+      navigate('/customer/products');
+    } else {
+      setError(true);
+    }
   };
 
   return (
@@ -42,6 +59,7 @@ function Login() {
           type="submit"
           data-testid="common_login__button-login"
           disabled={ !btnIsValid }
+          onClick={ handleSubmit }
         >
           LOGIN
         </button>
@@ -52,7 +70,7 @@ function Login() {
         >
           Ainda não tenho conta
         </button>
-        {errorMessage && (
+        {error && (
           <p data-testid="common_login__element-invalid-email">
             Mensagem de erro
           </p>
