@@ -8,6 +8,9 @@ function ProductsCustomer() {
       <Navbar item1="PRODUTOS" item2="MEUS PEDIDOS" />
       <div>
         <ProductsContainer />
+        <button type="button" data-testid="customer_products__checkout-bottom-value">
+          Ver Carrinho
+        </button>
       </div>
     </div>
   );

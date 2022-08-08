@@ -8,6 +8,11 @@ function ProductsContainer() {
 
   const [products, setProducts] = useState([]);
   const [quantity, setQuantity] = useState(0);
+  // const [totalPrice, setTotalPrice] = useState(0);
+
+  // const handleTotalPrice = (qtd, price) => {
+  //   setTotalPrice((currValue) => currValue + (qtd.price));
+  // };
 
   const changeQuantity = (action) => {
     if (action === 'decrease') return setQuantity((currValue) => currValue - 1);
@@ -15,15 +20,15 @@ function ProductsContainer() {
     return setQuantity((currValue) => currValue + 1);
   };
 
+  useEffect(() => {}, [quantity]);
+
   useEffect(() => {
     const token = localStorage.getItem('token');
 
     if (!token) return navigate('/');
 
     setToken(token);
-  }, []);
 
-  useEffect(() => {
     const getProducts = async () => {
       try {
         const { data } = await api.get('/product');
