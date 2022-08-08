@@ -1,7 +1,7 @@
 const product = (sequelize, DataTypes) => {
   const product = sequelize.define("product", {
     name: DataTypes.STRING,
-    price: DataTypes.DECIMAL(4,2),
+    price: DataTypes.DECIMAL(6, 2),
     urlImage: DataTypes.STRING
 },
   {
