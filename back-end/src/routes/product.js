@@ -1,13 +1,12 @@
 const express = require('express');
 const rescue = require('express-rescue');
 const product = require('../controllers/productController');
-const authMiddleware = require('../middleware/authMiddleware');
+const authToken = require('../middlewares/authToken');
 
 const router = express.Router();
 
 router.get('/', 
-  [rescue(authMiddleware)],
-  rescue(product.findAll)
-);
+  [rescue(authToken)],
+  rescue(product.findAll));
 
 module.exports = router;
