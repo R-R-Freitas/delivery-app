@@ -5,10 +5,16 @@ import { Link } from 'react-router-dom';
 function Navbar({ item1, item2, item3 }) {
   return (
     <div>
-      <Link to="/" data-testid="customer_products__element-navbar-link-products">
+      <Link
+        to="/customer/products"
+        data-testid="customer_products__element-navbar-link-products"
+      >
         { item1 }
       </Link>
-      <Link to="/" data-testid="customer_products__element-navbar-link-orders">
+      <Link
+        to="/customer/orders"
+        data-testid="customer_products__element-navbar-link-orders"
+      >
         { item2 }
       </Link>
       <Link to="/">{ item3 }</Link>
