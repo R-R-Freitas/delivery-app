@@ -16,7 +16,16 @@ const findByUserId = async (req, _res, next) => {
   next();
 };
 
+const findBySellerId = async (req, _res, next) => {
+  const { id, role } = req.user;
+  if (role === 'customer') throw errorObject(403, 'Não Autorizado');
+  const sales = await saleService.findBySellerId(id);
+  req.sales = sales;
+  next();
+};
+
 module.exports = {
   create,
   findByUserId,
+  findBySellerId,
 };
