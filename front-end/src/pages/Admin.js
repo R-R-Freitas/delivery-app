@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import Navbar from '../components/Navbar';
 import { MIN_LENGTH_NAME, MIN_LENGTH_PASSWORD } from '../services/constants';
 import { api } from '../services/fechApi';
-import { saveLocalStorage } from '../services/functions';
+import setToken, { getLocalStorage, saveLocalStorage } from '../services/functions';
 
 function Admin() {
   const navigate = useNavigate();
@@ -17,23 +17,32 @@ function Admin() {
 
   const handleSubmit = async () => {
     try {
+      console.log({ name, email, password, role });
       const { data } = await api.post('/admin', { name, email, password, role });
 
-      saveLocalStorage({ name, email, password, role });
+      saveLocalStorage(data);
 
-      setName('');
-      setEmail('');
-      setPassword('');
+      // setName('');
+      // setEmail('');
+      // setPassword('');
 
-      if (data.role === 'seller') return navigate('/seller/orders');
+      // if (data.role === 'seller') return navigate('/seller/orders');
 
-      navigate('/customer/products');
+      // navigate('/customer/products');
     } catch (error) {
       console.log(error);
 
       setRegisterFailed(true);
     }
   };
+
+  useEffect(() => {
+    const { token } = getLocalStorage();
+
+    if (!token) return navigate('/');
+
+    setToken(token);
+  }, [navigate]);
 
   useEffect(() => {
     const validName = name.length >= MIN_LENGTH_NAME;
