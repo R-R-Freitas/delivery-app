@@ -1,6 +1,6 @@
 import React from 'react';
 
-function ProductsCostumer() {
+function Checkout() {
   return (
     <div>
       <p>Página não implementada</p>
@@ -8,4 +8,4 @@ function ProductsCostumer() {
   );
 }
 
-export default ProductsCostumer;
+export default Checkout;
