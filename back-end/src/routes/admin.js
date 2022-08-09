@@ -3,15 +3,17 @@ const rescue = require('express-rescue');
 const user = require('../controllers/userController');
 const registerValidations = require('../middlewares/registerValidations');
 const hashPassword = require('../middlewares/hashPassword');
+const authToken = require('../middlewares/authToken');
 
 const router = express.Router();
 
 router.post('/',
   [
-    rescue(registerValidations.registerValidations),
+    rescue(authToken),
+    rescue(registerValidations.registerByAdminValidations),
     rescue(user.getByEmailOrName),
     rescue(hashPassword),
   ],
-  rescue(user.create));
+  rescue(user.createByAdmin));
 
 module.exports = router;
