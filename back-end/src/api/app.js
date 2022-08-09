@@ -4,6 +4,7 @@ const register = require('../routes/register');
 const login = require('../routes/login');
 const product = require('../routes/product');
 const sale = require('../routes/sale');
+const admin = require('../routes/admin');
 const images = require('../routes/images');
 
 const app = express();
@@ -22,6 +23,7 @@ app.use('/login', login);
 app.use('/register', register);
 app.use('/product', product);
 app.use('/sale', sale);
+app.use('/admin', admin);
 app.use('/images', images);
 
 app.get('/coffee', (_req, res) => res.status(418).end());
