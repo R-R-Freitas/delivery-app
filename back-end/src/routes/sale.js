@@ -13,4 +13,8 @@ router.post('/',
   ],
   rescue(salesProduct.create));
 
+router.get('/customer',
+  [rescue(authToken)],
+  rescue(sale.findByUserId));
+
 module.exports = router;
