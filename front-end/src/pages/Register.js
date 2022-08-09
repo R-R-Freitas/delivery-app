@@ -1,8 +1,12 @@
 import React, { useEffect, useState } from 'react';
-import { Navigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { MIN_LENGTH_NAME, MIN_LENGTH_PASSWORD } from '../services/constants';
+import { api } from '../services/fechApi';
+import { saveLocalStorage } from '../services/functions';
 
 function Register() {
+  const navigate = useNavigate();
+
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -11,14 +15,17 @@ function Register() {
 
   const handleSubmit = async () => {
     try {
-      await api.post('/register', { name, email, password });
+      const { data } = await api.post('/register', { name, email, password });
+
+      saveLocalStorage(data);
 
       setName('');
       setEmail('');
       setPassword('');
 
-      return <Navigate to="/customer/products" />;
+      navigate('/customer/products');
     } catch (error) {
+      console.log(error);
       setRegisterFailed(true);
     }
   };
@@ -81,7 +88,7 @@ function Register() {
         </button>
       </form>
       { registerFailed ? (
-        <p data-testid="common_register__element-invalid_register ">
+        <p data-testid="common_register__element-invalid_register">
           Dados já cadastrados.
         </p>
       )
