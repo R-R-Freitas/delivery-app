@@ -45,7 +45,7 @@ function ProductsCustomer() {
     };
 
     getProducts();
-  }, []);
+  }, [navigate]);
 
   return (
     <div>
