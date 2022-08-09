@@ -15,20 +15,25 @@ const newUserSchema = Joi.object({
 });
 
 const registerValidations = (req, _res, next) => {
+  const validRegister = newUserSchema.validate(req.body);
+  if (validRegister.error) {
+    throw errorObject(400, validRegister.error.details[0].message);
+  }
+  req.body.role = 'customer';
+  next();
+};
+
+const registerByAdminValidations = async (req, res, next) => {
   if (req.user && req.user.role === 'administrator') {
     const validRegister = newUserByAdmin.validate(req.body);
     if (validRegister.error) {
       throw errorObject(400, validRegister.error.details[0].message);
     }
     next();
-  } else {
-    const validRegister = newUserSchema.validate(req.body);
-    if (validRegister.error) {
-      throw errorObject(400, validRegister.error.details[0].message);
-    }
-    req.body.role = 'customer';
-    next();
   }
-};
+}
 
-module.exports = registerValidations;
+module.exports = {
+  registerValidations,
+  registerByAdminValidations,
+};

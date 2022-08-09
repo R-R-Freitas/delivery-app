@@ -8,7 +8,7 @@ const router = express.Router();
 
 router.post('/',
   [
-    rescue(registerValidations),
+    rescue(registerValidations.registerValidations),
     rescue(user.getByEmailOrName),
     rescue(hashPassword),
   ],

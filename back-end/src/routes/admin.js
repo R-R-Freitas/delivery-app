@@ -10,7 +10,7 @@ const router = express.Router();
 router.post('/',
   [
     rescue(authToken),
-    rescue(registerValidations),
+    rescue(registerValidations.registerByAdminValidations),
     rescue(user.getByEmailOrName),
     rescue(hashPassword),
   ],
