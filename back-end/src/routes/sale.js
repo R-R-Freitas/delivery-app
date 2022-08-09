@@ -19,13 +19,20 @@ router.get('/customer',
     rescue(authToken),
     rescue(sale.findByUserId),
   ],
-  rescue(formatSales));
+  rescue(formatSales.formatSales));
 
   router.get('/seller',
   [
     rescue(authToken),
     rescue(sale.findBySellerId),
   ],
-  rescue(formatSales));
+  rescue(formatSales.formatSales));
+
+  router.get('/:id',
+    [
+      rescue(authToken),
+      rescue(sale.findById),
+    ],
+    rescue(formatSales.formatSale));
 
 module.exports = router;
