@@ -10,7 +10,7 @@ const authToken = async (req, _res, next) => {
 
     if (!token) throw errorObject(401, notFound);
     const decoded = jwt.verify(token, secret);
-    req.user = decoded;
+    req.user = decoded.data;
     next();
 };
 
