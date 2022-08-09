@@ -27,6 +27,9 @@ function Login() {
 
       setError(false);
 
+      if (user.role === 'administrator') return navigate('/admin/manage');
+      if (user.role === 'seller') return navigate('/seller/orders');
+
       navigate('/customer/products');
     } else {
       setError(true);
