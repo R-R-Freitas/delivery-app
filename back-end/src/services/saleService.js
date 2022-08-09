@@ -29,18 +29,24 @@ const findByUserId = async (userId) => {
     ],
   });
   const plainSales = sales.map((aSale) => aSale.get({ plain: true }));
-  const salesByCustomer = plainSales.map((aSale) => {
-    const { products, ...thisSale } = aSale;
-    const formatedProducts = products.map((aProduct) => {
-      const { salesProduct, ...bProduct } = aProduct;
-      return { quantity: salesProduct.quantity, ...bProduct };
-    });
-    return { products: formatedProducts, ...thisSale };
+  return plainSales;
+};
+
+const findBySellerId = async (sellerId) => {
+  const sales = await sale.findAll({
+    where: { sellerId },
+    include: [
+      { model: user, as: 'user', attributes: { exclude: ['password'] } },
+      { model: user, as: 'seller', attributes: { exclude: ['password'] } },
+      { model: product, as: 'products', through: { attributes: ['quantity'] } },
+    ],
   });
-  return salesByCustomer;
+  const plainSales = sales.map((aSale) => aSale.get({ plain: true }));
+  return plainSales;
 };
 
 module.exports = {
   create,
   findByUserId,
+  findBySellerId,
 };

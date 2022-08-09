@@ -1,4 +1,5 @@
 const saleService = require('../services/saleService');
+const errorObject = require('../utils/errorObject');
 
 const create = async (req, _res, next) => {
   const { totalPrice, deliveryAddress, deliveryNumber, sellerId, userId } = req.body;
@@ -9,13 +10,23 @@ const create = async (req, _res, next) => {
   next();
 };
 
-const findByUserId = async (req, res, _next) => {
+const findByUserId = async (req, _res, next) => {
   const { id } = req.user;
   const sales = await saleService.findByUserId(id);
-  return res.status(200).json(sales);
+  req.sales = sales;
+  next();
+};
+
+const findBySellerId = async (req, _res, next) => {
+  const { id, role } = req.user;
+  if (role === 'customer') throw errorObject(403, 'Não Autorizado');
+  const sales = await saleService.findBySellerId(id);
+  req.sales = sales;
+  next();
 };
 
 module.exports = {
   create,
   findByUserId,
+  findBySellerId,
 };
