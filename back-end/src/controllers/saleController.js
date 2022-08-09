@@ -2,7 +2,8 @@ const saleService = require('../services/saleService');
 const errorObject = require('../utils/errorObject');
 
 const create = async (req, _res, next) => {
-  const { totalPrice, deliveryAddress, deliveryNumber, sellerId, userId } = req.body;
+  const { totalPrice, deliveryAddress, deliveryNumber, sellerId } = req.body;
+  const { id: userId } = req.user;
   const saleId = await saleService.create(
     { totalPrice, deliveryAddress, deliveryNumber, sellerId, userId },
   );
@@ -25,8 +26,16 @@ const findBySellerId = async (req, _res, next) => {
   next();
 };
 
+const findById = async (req, _res, next) => {
+  const { id } = req.params;
+  const sale = await saleService.findById(id);
+  req.sale = sale;
+  next();
+};
+
 module.exports = {
   create,
   findByUserId,
   findBySellerId,
+  findById,
 };
