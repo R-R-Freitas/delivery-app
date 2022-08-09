@@ -31,7 +31,7 @@ const registerByAdminValidations = async (req, res, next) => {
     }
     next();
   }
-}
+};
 
 module.exports = {
   registerValidations,
