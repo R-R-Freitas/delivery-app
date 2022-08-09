@@ -21,4 +21,11 @@ router.get('/customer',
   ],
   rescue(formatSales));
 
+  router.get('/seller',
+  [
+    rescue(authToken),
+    rescue(sale.findBySellerId),
+  ],
+  rescue(formatSales));
+
 module.exports = router;
