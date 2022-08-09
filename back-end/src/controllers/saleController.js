@@ -9,10 +9,11 @@ const create = async (req, _res, next) => {
   next();
 };
 
-const findByUserId = async (req, res, _next) => {
+const findByUserId = async (req, _res, next) => {
   const { id } = req.user;
   const sales = await saleService.findByUserId(id);
-  return res.status(200).json(sales);
+  req.sales = sales;
+  next();
 };
 
 module.exports = {

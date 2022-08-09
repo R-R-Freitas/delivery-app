@@ -29,15 +29,7 @@ const findByUserId = async (userId) => {
     ],
   });
   const plainSales = sales.map((aSale) => aSale.get({ plain: true }));
-  const salesByCustomer = plainSales.map((aSale) => {
-    const { products, ...thisSale } = aSale;
-    const formatedProducts = products.map((aProduct) => {
-      const { salesProduct, ...bProduct } = aProduct;
-      return { quantity: salesProduct.quantity, ...bProduct };
-    });
-    return { products: formatedProducts, ...thisSale };
-  });
-  return salesByCustomer;
+  return plainSales;
 };
 
 module.exports = {
