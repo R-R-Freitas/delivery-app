@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { api, MIN_LENGTH_NAME, MIN_LENGTH_PASSWORD } from '../services/constants';
+import { MIN_LENGTH_NAME, MIN_LENGTH_PASSWORD } from '../services/constants';
+import { api } from '../services/fechApi';
+import { saveLocalStorage } from '../services/functions';
 
 function Register() {
   const navigate = useNavigate();
@@ -15,7 +17,7 @@ function Register() {
     try {
       const { data } = await api.post('/register', { name, email, password });
 
-      console.log(data);
+      saveLocalStorage(data);
 
       setName('');
       setEmail('');

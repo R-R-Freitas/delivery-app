@@ -4,9 +4,11 @@ import { useDispatch } from 'react-redux';
 import setQuantityProduct from '../store/actions';
 
 function ProductContainer({ product }) {
-  const { id, name, price, url_image: urlImage } = product;
+  const { id, name, price, urlImage } = product;
+
   const dispatch = useDispatch();
   const [quantity, setQuantity] = useState(0);
+  console.log(quantity);
 
   const changeQuantity = useCallback((action) => {
     if (action === 'decrease') {
@@ -25,14 +27,15 @@ function ProductContainer({ product }) {
     const priceProduct = Number(price);
 
     dispatch(setQuantityProduct({ id, quantity, priceProduct }));
-  }, [changeQuantity, dispatch, id, price, quantity]);
+  }, [dispatch, id, price, quantity]);
 
   return (
     <div>
       <img
         data-testid={ `customer_products__img-card-bg-image-${id}` }
         src={ urlImage }
-        alt={ `Imagem ${name}` }
+        alt={ name }
+        width="80"
       />
       <p
         data-testid={ `customer_products__element-card-price-${id}` }
@@ -56,9 +59,8 @@ function ProductContainer({ product }) {
           id={ id }
           data-testid={ `customer_products__input-card-quantity-${id}` }
           type="number"
-          min={ 0 }
-          disabled
           value={ quantity }
+          onChange={ ({ target }) => console.log(target.value) }
         />
         <button
           data-testid={ `customer_products__button-card-add-item-${id}` }
@@ -77,7 +79,7 @@ ProductContainer.propTypes = {
     id: PropTypes.number,
     name: PropTypes.string,
     price: PropTypes.string,
-    url_image: PropTypes.string,
+    urlImage: PropTypes.string,
   }).isRequired,
 };
 

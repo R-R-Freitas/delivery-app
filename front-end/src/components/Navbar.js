@@ -1,15 +1,16 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Link, useNavigate } from 'react-router-dom';
+import { clearLocalStorage, getLocalStorage } from '../services/functions';
 
 function Navbar({ item1, item2, item3 }) {
   const navigate = useNavigate();
-  const name = localStorage.getItem('name');
+  const dataUser = getLocalStorage();
 
   const handleLogout = () => {
-    localStorage.clear();
+    clearLocalStorage();
 
-    return navigate('/');
+    navigate('/');
   };
 
   return (
@@ -28,12 +29,12 @@ function Navbar({ item1, item2, item3 }) {
       </Link>
       <Link to="/">{ item3 }</Link>
       <p data-testid="customer_products__element-navbar-user-full-name">
-        { name }
+        { dataUser.name }
       </p>
       <button
         type="button"
         data-testid="customer_products__element-navbar-link-logout"
-        onChange={ handleLogout }
+        onClick={ handleLogout }
       >
         Sair
       </button>

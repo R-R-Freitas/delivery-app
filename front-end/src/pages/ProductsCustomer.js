@@ -3,8 +3,8 @@ import { useNavigate } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import Navbar from '../components/Navbar';
 import ProductContainer from '../components/ProductContainer';
-import { api } from '../services/constants';
-import setToken from '../services/functions';
+import setToken, { clearLocalStorage, getLocalStorage } from '../services/functions';
+import { api } from '../services/fechApi';
 
 function ProductsCustomer() {
   const navigate = useNavigate();
@@ -26,7 +26,7 @@ function ProductsCustomer() {
   };
 
   useEffect(() => {
-    const token = localStorage.getItem('token');
+    const { token } = getLocalStorage();
 
     if (!token) return navigate('/');
 
@@ -38,7 +38,7 @@ function ProductsCustomer() {
 
         return setProducts(data);
       } catch (error) {
-        localStorage.clear();
+        clearLocalStorage();
 
         return navigate('/');
       }
@@ -56,7 +56,7 @@ function ProductsCustomer() {
         ))}
         <button
           type="button"
-          data-testid="customer_products__checkout-bottom-value"
+          data-testid="customer_products__button-cart"
           onClick={ () => navigate('/customer/checkout') }
         >
           {`Ver Carrinho: R$

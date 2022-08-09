@@ -2,15 +2,13 @@ import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { MIN_LENGTH_PASSWORD } from '../../services/constants';
 import signIn from '../../services/fechApi';
+import { saveLocalStorage } from '../../services/functions';
 
 function Login() {
   const navigate = useNavigate();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState(false);
-
-  console.log(email);
-  console.log(password);
 
   const emailRegex = /\S+@\S+\.+/;
 
@@ -25,8 +23,10 @@ function Login() {
     const user = await signIn(email, password);
 
     if (user) {
-      localStorage.setItem('user', JSON.stringify(user));
+      saveLocalStorage(user);
+
       setError(false);
+
       navigate('/customer/products');
     } else {
       setError(true);
@@ -72,7 +72,7 @@ function Login() {
         </button>
         {error && (
           <p data-testid="common_login__element-invalid-email">
-            Mensagem de erro
+            Dados não cadastrados.
           </p>
         )}
       </form>
