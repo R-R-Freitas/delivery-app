@@ -1,33 +1,84 @@
 import React, { useCallback, useEffect, useState } from 'react';
-import PropTypes from 'prop-types';
 import { useDispatch } from 'react-redux';
+import PropTypes from 'prop-types';
 import setQuantityProduct from '../store/actions';
 
 function ProductContainer({ product }) {
   const { id, name, price, urlImage } = product;
-
   const dispatch = useDispatch();
-  const [quantity, setQuantity] = useState(0);
-  console.log(quantity);
 
-  const changeQuantity = useCallback((action) => {
+  const getProductsLocalStorage = () => {
+    const products = JSON.parse(localStorage.getItem('products'));
+    return products;
+  };
+
+  const getQuantity = () => {
+    const getLocalStorage = getProductsLocalStorage();
+    const productsCurr = getLocalStorage
+      .find((item) => item.id === Number(id)).quantity || 0;
+    return productsCurr;
+  };
+
+  const [quantity, setQuantity] = useState(() => getQuantity());
+  const [productId, setProductId] = useState();
+
+  const changeQuantity = useCallback((action, idCurr) => {
+    const idNumber = Number(idCurr);
+    setProductId(idNumber);
+
+    const products = getProductsLocalStorage();
+
+    const productLocalStorage = products.find((item) => item.id === idNumber);
+
     if (action === 'decrease') {
-      setQuantity((currValue) => currValue - 1);
+      if (productLocalStorage.quantity < 0) setQuantity(0);
+      setQuantity(productLocalStorage.quantity ? productLocalStorage.quantity - 1 : 0);
       return;
     }
 
-    return setQuantity((currValue) => currValue + 1);
+    return setQuantity(productLocalStorage.quantity + 1);
   }, []);
 
   useEffect(() => {
-    if (quantity < 0) return setQuantity(0);
+    if (quantity < 0) setQuantity(0);
+
+    const products = getProductsLocalStorage();
+
+    const newProducts = products.map((item) => {
+      if (item.id === Number(productId)) {
+        return {
+          ...item,
+          quantity,
+        };
+      }
+
+      return item;
+    });
+
+    localStorage.setItem('products', JSON.stringify(newProducts));
   }, [quantity]);
 
   useEffect(() => {
-    const priceProduct = Number(price);
+    const totalCar = () => {
+      const productsLocalStorage = getProductsLocalStorage();
 
-    dispatch(setQuantityProduct({ id, quantity, priceProduct }));
-  }, [dispatch, id, price, quantity]);
+      if (productsLocalStorage.length !== 0) {
+        const reduce = productsLocalStorage.reduce((acc, item) => {
+          const totalValueProduct = item.quantity * item.price;
+
+          return acc + totalValueProduct;
+        }, 0);
+
+        const soma = reduce.toFixed(2).replace('.', ',');
+
+        dispatch(setQuantityProduct(soma));
+
+        return soma;
+      }
+    };
+
+    totalCar();
+  }, [quantity]);
 
   return (
     <div>
@@ -49,9 +100,10 @@ function ProductContainer({ product }) {
       </p>
       <div>
         <button
+          id={ id }
           data-testid={ `customer_products__button-card-rm-item-${id}` }
           type="button"
-          onClick={ () => changeQuantity('decrease') }
+          onClick={ (e) => changeQuantity('decrease', e.target.id) }
         >
           -
         </button>
@@ -60,12 +112,13 @@ function ProductContainer({ product }) {
           data-testid={ `customer_products__input-card-quantity-${id}` }
           type="number"
           value={ quantity }
-          onChange={ ({ target }) => console.log(target.value) }
+          onChange={ (e) => setQuantity(e.target.value) }
         />
         <button
+          id={ id }
           data-testid={ `customer_products__button-card-add-item-${id}` }
           type="button"
-          onClick={ () => changeQuantity('increase') }
+          onClick={ (e) => changeQuantity('increase', e.target.id) }
         >
           +
         </button>
