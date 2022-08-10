@@ -34,5 +34,12 @@ router.get('/customer',
       rescue(sale.findById),
     ],
     rescue(formatSales.formatSale));
+  
+  router.put('/:id',
+    [
+      rescue(authToken),
+      rescue(sale.update),
+    ],
+    rescue(formatSales.formatSale));
 
 module.exports = router;
