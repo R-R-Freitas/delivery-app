@@ -33,9 +33,22 @@ const findById = async (req, _res, next) => {
   next();
 };
 
+const update = async (req, _res, next) => {
+  const validStatus = ['Pendente', 'Preparando', 'Em Trânsito', 'Entregue'];
+  const { status } = req.body;
+  if (!validStatus.includes(status)) throw errorObject(400, 'Dados inválidos');
+  const { id } = req.params;
+  const { role } = req.user;
+  if (role === 'customer') throw errorObject(403, 'Não Autorizado');
+  const sale = await saleService.update(id, status);
+  req.sale = sale;
+  next();
+};
+
 module.exports = {
   create,
   findByUserId,
   findBySellerId,
   findById,
+  update,
 };
