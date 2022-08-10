@@ -20,9 +20,9 @@ const createByAdmin = async (req, res, _next) => {
   return res.status(201).json({ ...userWithoutId, token });
 };
 
-const getByEmailOrName = async (req, _res, next) => {
+const findByEmailOrName = async (req, _res, next) => {
   const { name, email } = req.body;
-  await userService.getByEmailOrName(name, email);
+  await userService.findByEmailOrName(name, email);
   next();
 };
 
@@ -34,9 +34,17 @@ const login = async (req, res, _next) => {
   return res.status(200).json({ ...userWithoutId, token });
 };
 
+const findAll = async (req, res, _next) => {
+  const { role } = req.user;
+  if (role !== 'administrator') throw errorObject(403, 'Não autorizado');
+  const allUsers = await userService.findAll();
+  return res.status(200).json(allUsers);
+};
+
 module.exports = {
   create,
   createByAdmin,
-  getByEmailOrName,
+  findByEmailOrName,
   login,
+  findAll,
 };

@@ -11,9 +11,15 @@ router.post('/',
   [
     rescue(authToken),
     rescue(registerValidations.registerByAdminValidations),
-    rescue(user.getByEmailOrName),
+    rescue(user.findByEmailOrName),
     rescue(hashPassword),
   ],
   rescue(user.createByAdmin));
+
+router.get('/users',
+  [
+    rescue(authToken),
+  ],
+  rescue(user.findAll));
 
 module.exports = router;
