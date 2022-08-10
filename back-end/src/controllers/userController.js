@@ -2,6 +2,9 @@ const userService = require('../services/userService');
 const generateJWT = require('../utils/generateJWT');
 const errorObject = require('../utils/errorObject');
 
+const forbidden = 'Não autorizado';
+const admin = 'administrator';
+
 const create = async (req, res, _next) => {
   const { name, email, hash: password, role } = req.body;
   const user = await userService.create(name, email, password, role);
@@ -13,7 +16,7 @@ const create = async (req, res, _next) => {
 const createByAdmin = async (req, res, _next) => {
   const { name, email, hash: password, role } = req.body;
   const { role: adminRole } = req.user;
-  if (adminRole !== 'administrator') throw errorObject(403, 'Não autorizado');
+  if (adminRole !== admin) throw errorObject(403, forbidden);
   const user = await userService.create(name, email, password, role);
   const token = generateJWT(user);
   const { id, ...userWithoutId } = user;
@@ -36,9 +39,17 @@ const login = async (req, res, _next) => {
 
 const findAll = async (req, res, _next) => {
   const { role } = req.user;
-  if (role !== 'administrator') throw errorObject(403, 'Não autorizado');
+  if (role !== admin) throw errorObject(403, forbidden);
   const allUsers = await userService.findAll();
   return res.status(200).json(allUsers);
+};
+
+const destroy = async (req, res, _next) => {
+  const { role } = req.user;
+  const { id } = req.params;
+  if (role !== admin) throw errorObject(403, forbidden);
+  await userService.destroy(id);
+  return res.status(200).json({ removed: id });
 };
 
 module.exports = {
@@ -47,4 +58,5 @@ module.exports = {
   findByEmailOrName,
   login,
   findAll,
+  destroy,
 };

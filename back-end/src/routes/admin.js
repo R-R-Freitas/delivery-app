@@ -22,4 +22,10 @@ router.get('/users',
   ],
   rescue(user.findAll));
 
+router.delete('/users/:id',
+  [
+    rescue(authToken),
+  ],
+  rescue(user.destroy));
+
 module.exports = router;
