@@ -9,21 +9,11 @@ import { api } from '../services/fechApi';
 function ProductsCustomer() {
   const navigate = useNavigate();
 
-  const [products, setProducts] = useState([]);
-
   const dataProducts = useSelector(({ productsData }) => productsData);
 
-  const totalCar = () => {
-    const arrProducts = Object.entries(dataProducts).map((product) => product[1]);
+  console.log(dataProducts);
 
-    const sum = arrProducts.reduce((acc, product) => {
-      const totalValueProduct = product.quantity * product.priceProduct;
-
-      return acc + totalValueProduct;
-    }, 0);
-
-    return sum.toFixed(2).replace('.', ',');
-  };
+  const [products, setProducts] = useState([]);
 
   useEffect(() => {
     const { token } = getLocalStorage();
@@ -36,6 +26,18 @@ function ProductsCustomer() {
       try {
         const { data } = await api.get('/product');
 
+        if (!localStorage.getItem('products')) {
+          const arrayProduct = data.map((item) => {
+            const { id, price } = item;
+
+            return {
+              id,
+              price,
+              quantity: 0,
+            };
+          });
+          localStorage.setItem('products', JSON.stringify(arrayProduct));
+        }
         return setProducts(data);
       } catch (error) {
         clearLocalStorage();
@@ -56,12 +58,15 @@ function ProductsCustomer() {
         ))}
         <button
           type="button"
-          data-testid="customer_products__button-cart"
+          data-testid="data-testid='customer_products__button-cart"
           onClick={ () => navigate('/customer/checkout') }
+          disabled={ dataProducts === '0,00' }
         >
-          {`Ver Carrinho: R$
-          ${totalCar()}
-          `}
+          <span
+            data-testid="customer_products__checkout-bottom-value"
+          >
+            {dataProducts}
+          </span>
         </button>
       </div>
     </div>
