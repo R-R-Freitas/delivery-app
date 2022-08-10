@@ -62,9 +62,19 @@ const findById = async (id) => {
   return plainSale;
 };
 
+const update = async (id, status) => {
+  const [updatedSale] = await sale.update(
+    { status },
+    { where: { id } },
+  );
+  if (!updatedSale) throw errorObject(404, 'Não encontrado');
+  return findById(id);
+};
+
 module.exports = {
   create,
   findByUserId,
   findBySellerId,
   findById,
+  update,
 };
