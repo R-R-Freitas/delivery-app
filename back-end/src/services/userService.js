@@ -27,6 +27,13 @@ const login = async (email, pwd) => {
   return userWithoutPassword;
 };
 
+const findAll = async () => {
+  const allUsers = await user.findAll({
+    attributes: { exclude: ['password'] },
+  });
+  return allUsers;
+};
+
 module.exports = {
   create,
   findByEmailOrName,
