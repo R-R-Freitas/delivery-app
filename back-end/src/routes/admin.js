@@ -16,4 +16,10 @@ router.post('/',
   ],
   rescue(user.createByAdmin));
 
+router.get('/users',
+  [
+    rescue(authToken),
+  ],
+  rescue(user.findAll));
+
 module.exports = router;
