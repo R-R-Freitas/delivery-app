@@ -1,7 +1,7 @@
 import React, { useCallback, useEffect, useState } from 'react';
 import { useDispatch } from 'react-redux';
 import PropTypes from 'prop-types';
-import setQuantityProduct from '../store/actions';
+import setTotalSum from '../store/actions';
 
 function ProductContainer({ product }) {
   const { id, name, price, urlImage } = product;
@@ -71,7 +71,7 @@ function ProductContainer({ product }) {
 
         const soma = reduce.toFixed(2).replace('.', ',');
 
-        dispatch(setQuantityProduct(soma));
+        dispatch(setTotalSum(soma));
 
         return soma;
       }

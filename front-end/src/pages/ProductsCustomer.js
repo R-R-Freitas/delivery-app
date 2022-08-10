@@ -9,9 +9,9 @@ import { api } from '../services/fechApi';
 function ProductsCustomer() {
   const navigate = useNavigate();
 
-  const dataProducts = useSelector(({ productsData }) => productsData);
+  const dataTotalSum = useSelector(({ totalSum }) => totalSum);
 
-  console.log(dataProducts);
+  console.log(dataTotalSum);
 
   const [products, setProducts] = useState([]);
 
@@ -65,7 +65,7 @@ function ProductsCustomer() {
           <span
             data-testid="customer_products__checkout-bottom-value"
           >
-            {dataProducts}
+            {dataTotalSum}
           </span>
         </button>
       </div>

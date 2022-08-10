@@ -1,9 +1,9 @@
 import { configureStore } from '@reduxjs/toolkit';
-import productsData from './reducers/productsData';
+import totalSum from './reducers/totalSum';
 
 const store = configureStore({
   reducer: {
-    productsData,
+    totalSum,
   },
 });
 
