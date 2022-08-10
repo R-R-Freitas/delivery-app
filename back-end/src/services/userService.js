@@ -8,7 +8,7 @@ const create = async (name, email, password, role) => {
   return userWithoutPassword;
 };
 
-const getByEmailOrName = async (name, email) => {
+const findByEmailOrName = async (name, email) => {
   const userByEmailOrName = await user.findOne({ where: {
     [Op.or]: [
       { name },
@@ -29,6 +29,7 @@ const login = async (email, pwd) => {
 
 module.exports = {
   create,
-  getByEmailOrName,
+  findByEmailOrName,
   login,
+  findAll,
 };

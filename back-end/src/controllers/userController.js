@@ -20,9 +20,9 @@ const createByAdmin = async (req, res, _next) => {
   return res.status(201).json({ ...userWithoutId, token });
 };
 
-const getByEmailOrName = async (req, _res, next) => {
+const findByEmailOrName = async (req, _res, next) => {
   const { name, email } = req.body;
-  await userService.getByEmailOrName(name, email);
+  await userService.findByEmailOrName(name, email);
   next();
 };
 
@@ -37,6 +37,6 @@ const login = async (req, res, _next) => {
 module.exports = {
   create,
   createByAdmin,
-  getByEmailOrName,
+  findByEmailOrName,
   login,
 };
