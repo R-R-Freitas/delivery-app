@@ -1,4 +1,5 @@
 const { sale, user, product } = require('../database/models');
+const errorObject = require('../utils/errorObject');
 
 const create = async (newSale) => {
   const { totalPrice, deliveryAddress, deliveryNumber, sellerId, userId } = newSale; 
@@ -45,8 +46,25 @@ const findBySellerId = async (sellerId) => {
   return plainSales;
 };
 
+const findById = async (id) => {
+  const saleDetails = await sale.findByPk(
+    id,
+    {
+      include: [
+        { model: user, as: 'user', attributes: { exclude: ['password'] } },
+        { model: user, as: 'seller', attributes: { exclude: ['password'] } },
+        { model: product, as: 'products', through: { attributes: ['quantity'] } },
+      ],
+    },
+  );
+  if (!saleDetails) throw errorObject(404, 'Não encontrado');
+  const plainSale = saleDetails.get({ plain: true });
+  return plainSale;
+};
+
 module.exports = {
   create,
   findByUserId,
   findBySellerId,
+  findById,
 };
