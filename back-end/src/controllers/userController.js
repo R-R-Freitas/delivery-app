@@ -34,7 +34,7 @@ const login = async (req, res, _next) => {
   return res.status(200).json({ ...userWithoutId, token });
 };
 
-const findAll = async (req, res, next) => {
+const findAll = async (req, res, _next) => {
   const { role } = req.user;
   if (role !== 'administrator') throw errorObject(403, 'Não autorizado');
   const allUsers = await userService.findAll();
