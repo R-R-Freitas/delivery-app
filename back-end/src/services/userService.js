@@ -34,9 +34,15 @@ const findAll = async () => {
   return allUsers;
 };
 
+const destroy = async (id) => {
+  const deletion = await user.destroy({ where: { id } });
+  if (!deletion) throw errorObject(404, 'Não encontrado');
+};
+
 module.exports = {
   create,
   findByEmailOrName,
   login,
   findAll,
+  destroy,
 };
