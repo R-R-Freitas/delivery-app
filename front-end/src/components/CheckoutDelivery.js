@@ -1,11 +1,11 @@
 import React, { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
 import { api } from '../services/fechApi';
 import { getCarShopLocalStorage } from '../services/functions';
-// import { useNavigate } from 'react-router-dom';
 
 function CheckoutDelivery() {
-  // const navigate = useNavigate();
+  const navigate = useNavigate();
   const totalPrice = useSelector(({ totalSum }) => totalSum);
 
   const [sellers, setSellers] = useState([]);
@@ -31,11 +31,11 @@ function CheckoutDelivery() {
       };
 
       console.log(objectRequest);
-      // const { data } = await api.post('/sale', objectRequest);
-      // console.log(data);
+      const { data: id } = await api.post('/sale', objectRequest);
+
       // if (data.role === 'seller') return navigate('/seller/orders');
 
-      // navigate(`/customer/orders/${data}`);
+      navigate(`/customer/orders/${id}`);
     } catch (error) {
       console.log(error);
     }
