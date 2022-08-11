@@ -38,8 +38,8 @@ const login = async (req, res, _next) => {
 };
 
 const findAll = async (req, res, _next) => {
-  const { role } = req.user;
-  if (role !== admin) throw errorObject(403, forbidden);
+  // const { role } = req.user;
+  // if (role !== admin) throw errorObject(403, forbidden);
   const allUsers = await userService.findAll();
   return res.status(200).json(allUsers);
 };
