@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 // import { useNavigate } from 'react-router-dom';
-// import setToken, { getLocalStorage } from '../services/functions';
+// import setToken, { getUserLocalStorage } from '../services/functions';
 
 function CheckoutDelivery() {
   // const navigate = useNavigate();
@@ -31,7 +31,7 @@ function CheckoutDelivery() {
   };
 
   // useEffect(() => {
-  //   const { token } = getLocalStorage();
+  //   const { token } = getUserLocalStorage();
 
   //   if (!token) return navigate('/');
 

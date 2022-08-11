@@ -1,11 +1,11 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Link, useNavigate } from 'react-router-dom';
-import { clearLocalStorage, getLocalStorage } from '../services/functions';
+import { clearLocalStorage, getUserLocalStorage } from '../services/functions';
 
 function Navbar({ item1, item2, item3 }) {
   const navigate = useNavigate();
-  const dataUser = getLocalStorage();
+  const dataUser = getUserLocalStorage();
 
   const handleLogout = () => {
     clearLocalStorage();

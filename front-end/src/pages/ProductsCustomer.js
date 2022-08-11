@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import Navbar from '../components/Navbar';
 import ProductContainer from '../components/ProductContainer';
-import setToken, { clearLocalStorage, getLocalStorage } from '../services/functions';
+import setToken, { clearLocalStorage, getUserLocalStorage } from '../services/functions';
 import { api } from '../services/fechApi';
 
 function ProductsCustomer() {
@@ -11,12 +11,10 @@ function ProductsCustomer() {
 
   const dataTotalSum = useSelector(({ totalSum }) => totalSum);
 
-  // console.log(dataTotalSum);
-
   const [products, setProducts] = useState([]);
 
   useEffect(() => {
-    const { token } = getLocalStorage();
+    const { token } = getUserLocalStorage();
 
     if (!token) return navigate('/');
 
@@ -58,7 +56,7 @@ function ProductsCustomer() {
         ))}
         <button
           type="button"
-          data-testid="data-testid='customer_products__button-cart"
+          data-testid="customer_products__button-cart"
           onClick={ () => navigate('/customer/checkout') }
           disabled={ ((dataTotalSum === '0,00' || dataTotalSum === 0)) }
         >
