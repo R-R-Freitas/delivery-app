@@ -1,12 +1,12 @@
 FROM node:16-alpine
 
-WORKDIR /frontend/
+WORKDIR /frontend
 
-COPY package.json /frontend
+COPY package*.json .
 
 RUN npm install
 
-COPY . /frontend/
+COPY . .
 
 EXPOSE 3000
 
