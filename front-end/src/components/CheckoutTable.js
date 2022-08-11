@@ -1,23 +1,79 @@
-import React, { useEffect, useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
+import { useDispatch } from 'react-redux';
 import { getCarShopLocalStorage } from '../services/functions';
+import setTotalSum from '../store/actions';
 
 function CheckoutTable() {
+  const dispatch = useDispatch();
+
   const CheckoutTitles = [
     'Item', 'Descrição', 'Quantidade', 'Valor Unitário', 'Sub-total', 'Remover Item',
   ];
 
   const [productsWithQtt, setProductsWithQtt] = useState([]);
 
-  // const mockOrders = [
-  //   { id: 1, name: 'Skol Lata 250ml', price: 2.2, quantity: 2 },
-  //   { id: 2, name: 'Heineken 600ml', price: 7.5, quantity: 4 },
-  // ];
+  const totalCar = useCallback((productsLocalStorage) => {
+    if (productsLocalStorage.length !== 0) {
+      const reduce = productsLocalStorage.reduce((acc, item) => {
+        const totalValueProduct = item.quantity * Number(item.price);
+
+        return acc + totalValueProduct;
+      }, 0);
+
+      dispatch(setTotalSum(reduce));
+
+      return reduce;
+    }
+  }, [dispatch]);
+
+  const updateLocalStorage = useCallback((CurrQtt, idProduct, products) => {
+    const newProducts = products.map((item) => {
+      if (item.id === idProduct) {
+        return {
+          ...item,
+          quantity: CurrQtt,
+        };
+      }
+
+      return item;
+    });
+
+    const productsWithQuant = newProducts
+      .filter(({ quantity }) => quantity !== 0);
+
+    totalCar(productsWithQuant);
+
+    setProductsWithQtt(productsWithQuant);
+
+    localStorage.setItem('carShop', JSON.stringify(productsWithQuant));
+  }, [totalCar]);
+
+  const handleRemoveProduct = useCallback((idCurr) => {
+    const idNumber = Number(idCurr);
+
+    const products = getCarShopLocalStorage();
+
+    const RemoveQuantity = () => {
+      const productLocalStorage = products.find((item) => item.id === idNumber);
+
+      const { quantity: productQuantity } = productLocalStorage;
+      const productQt = Number(productQuantity);
+
+      return productQt > 0 ? (productQt - 1) : 0;
+    };
+
+    const newQtt = RemoveQuantity();
+
+    updateLocalStorage(newQtt, idNumber, products);
+  }, [updateLocalStorage]);
 
   useEffect(() => {
     const products = getCarShopLocalStorage();
 
+    totalCar(products);
+
     return setProductsWithQtt(products);
-  }, []);
+  }, [totalCar]);
 
   return (
     <div>
@@ -75,7 +131,7 @@ function CheckoutTable() {
                   data-testid={
                     `customer_checkout__element-order-table-remove-${index}`
                   }
-                  onClick={ () => console.log('a') }
+                  onClick={ ({ target }) => handleRemoveProduct(target.id) }
                 >
                   Remover
                 </button>

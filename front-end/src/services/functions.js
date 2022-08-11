@@ -12,6 +12,8 @@ export const saveLocalStorage = (payload) => {
 
 export const clearLocalStorage = () => {
   localStorage.removeItem('user');
+  localStorage.removeItem('products');
+  localStorage.removeItem('carShop');
 };
 
 export const getUserLocalStorage = () => JSON.parse(localStorage.getItem('user'));
