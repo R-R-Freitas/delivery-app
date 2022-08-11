@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import Navbar from '../components/Navbar';
 import { MIN_LENGTH_NAME, MIN_LENGTH_PASSWORD } from '../services/constants';
 import { api } from '../services/fechApi';
-import setToken, { getLocalStorage, saveLocalStorage } from '../services/functions';
+import setToken, { getUserLocalStorage, saveLocalStorage } from '../services/functions';
 
 function Admin() {
   const navigate = useNavigate();
@@ -37,7 +37,7 @@ function Admin() {
   };
 
   useEffect(() => {
-    const { token } = getLocalStorage();
+    const { token } = getUserLocalStorage();
 
     if (!token) return navigate('/');
 
