@@ -5,6 +5,7 @@ import setTotalSum from '../store/actions';
 
 function ProductContainer({ product }) {
   const { id, name, price, urlImage } = product;
+
   const dispatch = useDispatch();
 
   const getProductsLocalStorage = () => {
@@ -16,69 +17,83 @@ function ProductContainer({ product }) {
     const getLocalStorage = getProductsLocalStorage();
     const productsCurr = getLocalStorage
       .find((item) => item.id === Number(id)).quantity || 0;
+
     return productsCurr;
   };
 
   const [quantity, setQuantity] = useState(() => getQuantity());
-  const [productId, setProductId] = useState();
+  // console.log(quantity);
+  // const [productId, setProductId] = useState();
 
-  const changeQuantity = useCallback((action, idCurr) => {
-    const idNumber = Number(idCurr);
-    setProductId(idNumber);
+  const totalCar = useCallback((productsLocalStorage) => {
+    if (productsLocalStorage.length !== 0) {
+      const reduce = productsLocalStorage.reduce((acc, item) => {
+        const totalValueProduct = item.quantity * Number(item.price);
 
-    const products = getProductsLocalStorage();
+        return acc + totalValueProduct;
+      }, 0);
 
-    const productLocalStorage = products.find((item) => item.id === idNumber);
+      dispatch(setTotalSum(reduce));
 
-    if (action === 'decrease') {
-      if (productLocalStorage.quantity < 0) setQuantity(0);
-      setQuantity(productLocalStorage.quantity ? productLocalStorage.quantity - 1 : 0);
-      return;
+      return reduce;
     }
+  }, [dispatch]);
 
-    return setQuantity(productLocalStorage.quantity + 1);
-  }, []);
+  const updateLocalStorage = useCallback((sum, idProduct, products) => {
+    if (sum < 0) setQuantity(0);
 
-  useEffect(() => {
-    if (quantity < 0) setQuantity(0);
+    // const products = getProductsLocalStorage();
+    console.log(products[10]);
 
-    const products = getProductsLocalStorage();
+    // console.log('quantity');
+    console.log(sum);
 
     const newProducts = products.map((item) => {
-      if (item.id === Number(productId)) {
+      if (item.id === idProduct) {
         return {
           ...item,
-          quantity,
+          quantity: sum,
         };
       }
 
       return item;
     });
 
+    console.log(newProducts);
+    totalCar(newProducts);
     localStorage.setItem('products', JSON.stringify(newProducts));
-  }, [quantity]);
+  }, [totalCar]);
 
-  useEffect(() => {
-    const totalCar = () => {
-      const productsLocalStorage = getProductsLocalStorage();
+  const changeQuantity = useCallback((action, idCurr, value = 0) => {
+    const idNumber = Number(idCurr);
+    // setProductId(idNumber);
+    const products = getProductsLocalStorage();
 
-      if (productsLocalStorage.length !== 0) {
-        const reduce = productsLocalStorage.reduce((acc, item) => {
-          const totalValueProduct = item.quantity * item.price;
+    const updateQtt = () => {
+      const productLocalStorage = products.find((item) => item.id === idNumber);
+      const { quantity: productQuantity } = productLocalStorage;
+      const productQt = Number(productQuantity);
 
-          return acc + totalValueProduct;
-        }, 0);
+      if (action === 'set') return value < 0 ? 0 : Number(value);
 
-        const soma = reduce.toFixed(2).replace('.', ',');
-
-        dispatch(setTotalSum(soma));
-
-        return soma;
+      if (action === 'decrease') {
+        return productQt > 0 ? (productQt - 1) : 0;
       }
+
+      return productQt + 1;
     };
 
-    totalCar();
-  }, [quantity]);
+    const newQtt = updateQtt();
+
+    updateLocalStorage(newQtt, idNumber, products);
+    setQuantity(newQtt);
+  }, [updateLocalStorage]);
+
+  useEffect(() => {
+    const products = getProductsLocalStorage();
+
+    return totalCar(products);
+  }, [totalCar]);
 
   return (
     <div>
@@ -112,13 +127,14 @@ function ProductContainer({ product }) {
           data-testid={ `customer_products__input-card-quantity-${id}` }
           type="number"
           value={ quantity }
-          onChange={ (e) => setQuantity(e.target.value) }
+          // onChange={ ({ target: { value } }) => setQuantity(Number(value)) }
+          onChange={ ({ target }) => changeQuantity('set', target.id, target.value) }
         />
         <button
           id={ id }
           data-testid={ `customer_products__button-card-add-item-${id}` }
           type="button"
-          onClick={ (e) => changeQuantity('increase', e.target.id) }
+          onClick={ ({ target }) => changeQuantity('increase', target.id) }
         >
           +
         </button>

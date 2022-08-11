@@ -11,7 +11,7 @@ function ProductsCustomer() {
 
   const dataTotalSum = useSelector(({ totalSum }) => totalSum);
 
-  console.log(dataTotalSum);
+  // console.log(dataTotalSum);
 
   const [products, setProducts] = useState([]);
 
@@ -60,12 +60,12 @@ function ProductsCustomer() {
           type="button"
           data-testid="data-testid='customer_products__button-cart"
           onClick={ () => navigate('/customer/checkout') }
-          disabled={ dataProducts === '0,00' }
+          disabled={ ((dataTotalSum === '0,00' || dataTotalSum === 0)) }
         >
           <span
             data-testid="customer_products__checkout-bottom-value"
           >
-            {dataTotalSum}
+            {dataTotalSum.toFixed(2).replace('.', ',')}
           </span>
         </button>
       </div>
