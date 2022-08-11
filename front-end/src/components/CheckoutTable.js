@@ -1,14 +1,23 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
+import { getCarShopLocalStorage } from '../services/functions';
 
 function CheckoutTable() {
   const CheckoutTitles = [
     'Item', 'Descrição', 'Quantidade', 'Valor Unitário', 'Sub-total', 'Remover Item',
   ];
 
-  const mockOrders = [
-    { id: 1, name: 'Skol Lata 250ml', price: 2.2, quantity: 2 },
-    { id: 2, name: 'Heineken 600ml', price: 7.5, quantity: 4 },
-  ];
+  const [productsWithQtt, setProductsWithQtt] = useState([]);
+
+  // const mockOrders = [
+  //   { id: 1, name: 'Skol Lata 250ml', price: 2.2, quantity: 2 },
+  //   { id: 2, name: 'Heineken 600ml', price: 7.5, quantity: 4 },
+  // ];
+
+  useEffect(() => {
+    const products = getCarShopLocalStorage();
+
+    return setProductsWithQtt(products);
+  }, []);
 
   return (
     <div>
@@ -22,7 +31,7 @@ function CheckoutTable() {
           </tr>
         </thead>
         <tbody>
-          {mockOrders.map(({ id, name, price, quantity }, index) => (
+          {productsWithQtt.map(({ id, name, price, quantity }, index) => (
             <tr key={ id }>
               <td
                 data-testid={
@@ -50,14 +59,14 @@ function CheckoutTable() {
                   `customer_checkout__element-order-table-unit-price-${index}`
                 }
               >
-                { price.toFixed(2).replace('.', ',') }
+                { Number(price).toFixed(2).replace('.', ',') }
               </td>
               <td
                 data-testid={
                   `customer_checkout__element-order-table-sub-total-${index}`
                 }
               >
-                { (quantity * price).toFixed(2).replace('.', ',') }
+                { Number(price * quantity).toFixed(2).replace('.', ',') }
               </td>
               <td>
                 <button
