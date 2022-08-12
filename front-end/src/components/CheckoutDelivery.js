@@ -1,42 +1,58 @@
-import React, { useState } from 'react';
-// import { useNavigate } from 'react-router-dom';
-// import setToken, { getUserLocalStorage } from '../services/functions';
+import React, { useEffect, useState } from 'react';
+import { useSelector } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
+import { api } from '../services/fechApi';
+import { getCarShopLocalStorage } from '../services/functions';
 
 function CheckoutDelivery() {
-  // const navigate = useNavigate();
+  const navigate = useNavigate();
+  const totalPrice = useSelector(({ totalSum }) => totalSum);
 
-  const [seller, setSeller] = useState('');
-  const [address, setAddress] = useState('');
-  const [numberAddress, setNumberAddress] = useState('');
+  const [sellers, setSellers] = useState([]);
+  const [sellerId, setSellerId] = useState(1);
+  const [deliveryAddress, setDeliveryAddress] = useState('');
+  const [deliveryNumber, setDeliveryNumber] = useState('');
 
   const handleSubmit = async () => {
     try {
-      console.log({ seller, address, numberAddress });
-      //     const { data } = await api.post('/admin', { seller, address, numberAddress });
+      const carShopLocalStorage = getCarShopLocalStorage();
 
-      //     saveLocalStorage(data);
+      const saleProducts = carShopLocalStorage.map((product) => ({
+        productId: product.id,
+        quantity: product.quantity,
+      }));
 
-      //     setName('');
-      //     setEmail('');
-      //     setPassword('');
+      const objectRequest = {
+        totalPrice,
+        deliveryAddress,
+        deliveryNumber,
+        sellerId: Number(sellerId),
+        saleProducts,
+      };
 
-      //     if (data.role === 'seller') return navigate('/seller/orders');
+      console.log(objectRequest);
+      const { data } = await api.post('/sale', objectRequest);
+      console.log(data);
 
-      //     navigate('/customer/products');
+      // if (data.role === 'seller') return navigate('/seller/orders');
+
+      navigate(`/customer/orders/${data.saleId}`);
     } catch (error) {
       console.log(error);
-
-      //     setRegisterFailed(true);
     }
   };
 
-  // useEffect(() => {
-  //   const { token } = getUserLocalStorage();
+  useEffect(() => {
+    const getUsers = async () => {
+      const { data } = await api.get('/admin/users');
 
-  //   if (!token) return navigate('/');
+      const filteredSellers = data.filter(({ role }) => role === 'seller');
 
-  //   setToken(token);
-  // }, [navigate]);
+      setSellers(filteredSellers);
+    };
+
+    getUsers();
+  }, []);
 
   return (
     <form>
@@ -46,11 +62,14 @@ function CheckoutDelivery() {
         P. Vendedora Responsável
         <select
           data-testid="customer_checkout__select-seller"
-          value={ seller }
-          onChange={ ({ target: { value } }) => setSeller(value) }
+          value={ sellerId }
+          onChange={ ({ target: { value } }) => setSellerId(value) }
         >
-          <option value="seller1">Vendedor 1</option>
-          <option value="seller2">Vendedor 2</option>
+          {sellers.map(({ id, name: sellerName }) => (
+            <option key={ id } value={ id }>
+              { sellerName }
+            </option>
+          ))}
         </select>
       </label>
 
@@ -59,19 +78,19 @@ function CheckoutDelivery() {
         <input
           data-testid="customer_checkout__input-address"
           type="text"
-          value={ address }
-          onChange={ ({ target: { value } }) => setAddress(value) }
+          value={ deliveryAddress }
+          onChange={ ({ target: { value } }) => setDeliveryAddress(value) }
           placeholder="Travessa Terceira da Castanheira, Bairro Muruci"
         />
       </label>
 
-      <label htmlFor="numberAddress-input">
+      <label htmlFor="deliveryNumber-input">
         Número
         <input
           data-testid="customer_checkout__input-addressNumber"
           type="text"
-          value={ numberAddress }
-          onChange={ ({ target: { value } }) => setNumberAddress(value) }
+          value={ deliveryNumber }
+          onChange={ ({ target: { value } }) => setDeliveryNumber(value) }
           placeholder="198"
         />
       </label>
