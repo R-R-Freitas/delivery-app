@@ -31,11 +31,12 @@ function CheckoutDelivery() {
       };
 
       console.log(objectRequest);
-      const { data: id } = await api.post('/sale', objectRequest);
+      const { data } = await api.post('/sale', objectRequest);
+      console.log(data);
 
       // if (data.role === 'seller') return navigate('/seller/orders');
 
-      navigate(`/customer/orders/${id}`);
+      navigate(`/customer/orders/${data.saleId}`);
     } catch (error) {
       console.log(error);
     }
