@@ -3,30 +3,30 @@ import { useNavigate } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import Navbar from '../components/Navbar';
 import ProductContainer from '../components/ProductContainer';
-import setToken, { clearLocalStorage, getLocalStorage } from '../services/functions';
+import setToken, { clearLocalStorage, getProductsLocalStorage,
+  getUserLocalStorage } from '../services/functions';
 import { api } from '../services/fechApi';
 
 function ProductsCustomer() {
   const navigate = useNavigate();
 
+  const dataTotalSum = useSelector(({ totalSum }) => totalSum);
+
   const [products, setProducts] = useState([]);
 
-  const dataProducts = useSelector(({ productsData }) => productsData);
+  const handleCarShop = () => {
+    const productsLocalStorage = getProductsLocalStorage();
 
-  const totalCar = () => {
-    const arrProducts = Object.entries(dataProducts).map((product) => product[1]);
+    const productsWithQuant = productsLocalStorage
+      .filter(({ quantity }) => quantity !== 0);
 
-    const sum = arrProducts.reduce((acc, product) => {
-      const totalValueProduct = product.quantity * product.priceProduct;
+    localStorage.setItem('carShop', JSON.stringify(productsWithQuant));
 
-      return acc + totalValueProduct;
-    }, 0);
-
-    return sum.toFixed(2).replace('.', ',');
+    navigate('/customer/checkout');
   };
 
   useEffect(() => {
-    const { token } = getLocalStorage();
+    const { token } = getUserLocalStorage();
 
     if (!token) return navigate('/');
 
@@ -36,6 +36,19 @@ function ProductsCustomer() {
       try {
         const { data } = await api.get('/product');
 
+        if (!localStorage.getItem('products')) {
+          const arrayProduct = data.map((item) => {
+            const { id, price, name } = item;
+
+            return {
+              id,
+              name,
+              price,
+              quantity: 0,
+            };
+          });
+          localStorage.setItem('products', JSON.stringify(arrayProduct));
+        }
         return setProducts(data);
       } catch (error) {
         clearLocalStorage();
@@ -57,11 +70,16 @@ function ProductsCustomer() {
         <button
           type="button"
           data-testid="customer_products__button-cart"
-          onClick={ () => navigate('/customer/checkout') }
+          onClick={ handleCarShop }
+          disabled={ ((dataTotalSum === '0,00' || dataTotalSum === 0)) }
         >
-          {`Ver Carrinho: R$
-          ${totalCar()}
-          `}
+          Ver Carrinho: R$
+          {' '}
+          <span
+            data-testid="customer_products__checkout-bottom-value"
+          >
+            {dataTotalSum.toFixed(2).replace('.', ',')}
+          </span>
         </button>
       </div>
     </div>

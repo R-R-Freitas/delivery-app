@@ -1,8 +1,8 @@
-import { SET_QUANTITY } from '../../services/constants';
+import { SET_SUM } from '../../services/constants';
 
-const setQuantityProduct = (payload) => ({
-  type: SET_QUANTITY,
+const setTotalSum = (payload) => ({
+  type: SET_SUM,
   payload,
 });
 
-export default setQuantityProduct;
+export default setTotalSum;

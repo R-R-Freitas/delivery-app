@@ -1,33 +1,86 @@
 import React, { useCallback, useEffect, useState } from 'react';
-import PropTypes from 'prop-types';
 import { useDispatch } from 'react-redux';
-import setQuantityProduct from '../store/actions';
+import PropTypes from 'prop-types';
+import setTotalSum from '../store/actions';
+import { getProductsLocalStorage } from '../services/functions';
 
 function ProductContainer({ product }) {
   const { id, name, price, urlImage } = product;
 
   const dispatch = useDispatch();
-  const [quantity, setQuantity] = useState(0);
-  console.log(quantity);
 
-  const changeQuantity = useCallback((action) => {
-    if (action === 'decrease') {
-      setQuantity((currValue) => currValue - 1);
-      return;
+  const getQuantity = () => {
+    const getLocalStorage = getProductsLocalStorage();
+    const productCurr = getLocalStorage
+      .find((item) => item.id === Number(id)).quantity || 0;
+
+    return productCurr;
+  };
+
+  const [quantity, setQuantity] = useState(() => getQuantity());
+
+  const totalCar = useCallback((productsLocalStorage) => {
+    if (productsLocalStorage.length !== 0) {
+      const reduce = productsLocalStorage.reduce((acc, item) => {
+        const totalValueProduct = item.quantity * Number(item.price);
+
+        return acc + totalValueProduct;
+      }, 0);
+
+      dispatch(setTotalSum(reduce));
+
+      return reduce;
     }
+  }, [dispatch]);
 
-    return setQuantity((currValue) => currValue + 1);
-  }, []);
+  const updateLocalStorage = useCallback((CurrQtt, idProduct, products) => {
+    if (CurrQtt < 0) setQuantity(0);
+
+    const newProducts = products.map((item) => {
+      if (item.id === idProduct) {
+        return {
+          ...item,
+          quantity: CurrQtt,
+        };
+      }
+
+      return item;
+    });
+
+    totalCar(newProducts);
+    localStorage.setItem('products', JSON.stringify(newProducts));
+  }, [totalCar]);
+
+  const changeQuantity = useCallback((action, idCurr, value = 0) => {
+    const idNumber = Number(idCurr);
+
+    const products = getProductsLocalStorage();
+
+    const updateQtt = () => {
+      const productLocalStorage = products.find((item) => item.id === idNumber);
+      const { quantity: productQuantity } = productLocalStorage;
+      const productQt = Number(productQuantity);
+
+      if (action === 'set') return value < 0 ? 0 : Number(value);
+
+      if (action === 'decrease') {
+        return productQt > 0 ? (productQt - 1) : 0;
+      }
+
+      return productQt + 1;
+    };
+
+    const newQtt = updateQtt();
+
+    updateLocalStorage(newQtt, idNumber, products);
+    setQuantity(newQtt);
+  }, [updateLocalStorage]);
 
   useEffect(() => {
-    if (quantity < 0) return setQuantity(0);
-  }, [quantity]);
+    const products = getProductsLocalStorage();
 
-  useEffect(() => {
-    const priceProduct = Number(price);
-
-    dispatch(setQuantityProduct({ id, quantity, priceProduct }));
-  }, [dispatch, id, price, quantity]);
+    return totalCar(products);
+  }, [totalCar]);
 
   return (
     <div>
@@ -49,9 +102,10 @@ function ProductContainer({ product }) {
       </p>
       <div>
         <button
+          id={ id }
           data-testid={ `customer_products__button-card-rm-item-${id}` }
           type="button"
-          onClick={ () => changeQuantity('decrease') }
+          onClick={ ({ target }) => changeQuantity('decrease', target.id) }
         >
           -
         </button>
@@ -60,12 +114,13 @@ function ProductContainer({ product }) {
           data-testid={ `customer_products__input-card-quantity-${id}` }
           type="number"
           value={ quantity }
-          onChange={ ({ target }) => console.log(target.value) }
+          onChange={ ({ target }) => changeQuantity('set', target.id, target.value) }
         />
         <button
+          id={ id }
           data-testid={ `customer_products__button-card-add-item-${id}` }
           type="button"
-          onClick={ () => changeQuantity('increase') }
+          onClick={ ({ target }) => changeQuantity('increase', target.id) }
         >
           +
         </button>
