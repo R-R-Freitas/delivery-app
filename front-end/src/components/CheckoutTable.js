@@ -11,6 +11,7 @@ function CheckoutTable() {
   ];
 
   const [productsWithQtt, setProductsWithQtt] = useState([]);
+  console.log(productsWithQtt);
 
   const totalCar = useCallback((productsLocalStorage) => {
     if (productsLocalStorage.length !== 0) {
