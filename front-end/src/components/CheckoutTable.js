@@ -11,7 +11,6 @@ function CheckoutTable() {
   ];
 
   const [productsWithQtt, setProductsWithQtt] = useState([]);
-  console.log(productsWithQtt);
 
   const totalCar = useCallback((productsLocalStorage) => {
     if (productsLocalStorage.length !== 0) {
@@ -28,25 +27,16 @@ function CheckoutTable() {
   }, [dispatch]);
 
   const updateLocalStorage = useCallback((CurrQtt, idProduct, products) => {
-    const newProducts = products.map((item) => {
-      if (item.id === idProduct) {
-        return {
-          ...item,
-          quantity: CurrQtt,
-        };
-      }
-
-      return item;
-    });
+    const newProducts = products.filter((item) => item.id !== idProduct);
 
     const productsWithQuant = newProducts
       .filter(({ quantity }) => quantity !== 0);
 
     totalCar(productsWithQuant);
 
-    setProductsWithQtt(productsWithQuant);
-
     localStorage.setItem('carShop', JSON.stringify(productsWithQuant));
+
+    setProductsWithQtt(productsWithQuant);
   }, [totalCar]);
 
   const handleRemoveProduct = useCallback((idCurr) => {

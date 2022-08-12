@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import CheckoutDelivery from '../components/CheckoutDelivery';
@@ -8,8 +8,8 @@ import setToken, { getUserLocalStorage } from '../services/functions';
 
 function Checkout() {
   const navigate = useNavigate();
+  const [total, setTotal] = useState(0);
   const dataTotalSum = useSelector(({ totalSum }) => totalSum);
-  console.log(dataTotalSum);
 
   useEffect(() => {
     const { token } = getUserLocalStorage();
@@ -18,6 +18,26 @@ function Checkout() {
 
     setToken(token);
   }, [navigate]);
+
+  useEffect(() => {
+    const carShop = JSON.parse(localStorage.getItem('carShop'));
+
+    setTotal(dataTotalSum);
+
+    if (carShop.length === 0) {
+      setTotal(0);
+    } else {
+      const products = carShop;
+
+      const reduce = products.reduce((acc, item) => {
+        const totalValueProduct = item.quantity * Number(item.price);
+
+        return acc + totalValueProduct;
+      }, 0);
+
+      setTotal(reduce);
+    }
+  }, [total, dataTotalSum]);
 
   return (
     <div>
@@ -30,7 +50,7 @@ function Checkout() {
         Total: R$
         {' '}
         <span data-testid="customer_checkout__element-order-total-price">
-          {dataTotalSum.toFixed(2).replace('.', ',')}
+          {total.toFixed(2).replace('.', ',')}
         </span>
       </button>
       <CheckoutDelivery />
