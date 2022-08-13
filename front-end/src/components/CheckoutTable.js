@@ -24,9 +24,11 @@ function CheckoutTable() {
 
       return reduce;
     }
+
+    dispatch(setTotalSum(0));
   }, [dispatch]);
 
-  const updateLocalStorage = useCallback((CurrQtt, idProduct, products) => {
+  const updateLocalStorage = useCallback((idProduct, products) => {
     const newProducts = products.filter((item) => item.id !== idProduct);
 
     const productsWithQuant = newProducts
