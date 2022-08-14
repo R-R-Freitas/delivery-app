@@ -1,3 +1,4 @@
+import { TEN } from './constants';
 import { api } from './fechApi';
 
 const setToken = (token) => {
@@ -21,3 +22,9 @@ export const getUserLocalStorage = () => JSON.parse(localStorage.getItem('user')
 export const getProductsLocalStorage = () => JSON.parse(localStorage.getItem('products'));
 
 export const getCarShopLocalStorage = () => JSON.parse(localStorage.getItem('carShop'));
+
+export const serializeDate = (date) => {
+  const formatDate = new Date(date).toLocaleString('pt-BR').slice(0, TEN);
+
+  return formatDate;
+};

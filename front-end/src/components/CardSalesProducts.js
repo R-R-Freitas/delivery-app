@@ -7,28 +7,28 @@ function CardSalesProduct({ price, status, date, id }) {
     <Link to={ `/customer/orders/${id}` }>
       <div>
         <p
-          data-testing={ `customer_orders__element-order-id-${id}` }
+          data-testid={ `customer_orders__element-order-id-${id}` }
         >
           {id}
-
         </p>
-        <p
-          data-testing={ `customer_orders__element-card-price-${id}` }
-        >
-          {price}
-
+        <p>
+          R$
+          {' '}
+          <span
+            data-testid={ `customer_orders__element-card-price-${id}` }
+          >
+            {Number(price).toFixed(2).replace('.', ',')}
+          </span>
         </p>
         <p
           data-testid={ `customer_orders__element-delivery-status-${id}` }
         >
           {status}
-
         </p>
         <p
           data-testid={ `customer_orders__element-order-date-${id}` }
         >
           {date}
-
         </p>
       </div>
     </Link>

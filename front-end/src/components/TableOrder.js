@@ -1,16 +1,21 @@
 import React, { useCallback, useEffect, useState } from 'react';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
+import PropTypes from 'prop-types';
 import { getCarShopLocalStorage } from '../services/functions';
 import setTotalSum from '../store/actions';
 
-function CheckoutTable() {
+function TableOrder({ isCheckout }) {
   const dispatch = useDispatch();
+  const dataTotalSum = useSelector(({ totalSum }) => totalSum);
 
-  const CheckoutTitles = [
+  const CheckoutTitles = isCheckout ? [
     'Item', 'Descrição', 'Quantidade', 'Valor Unitário', 'Sub-total', 'Remover Item',
+  ] : [
+    'Item', 'Descrição', 'Quantidade', 'Valor Unitário', 'Sub-total',
   ];
 
   const [productsWithQtt, setProductsWithQtt] = useState([]);
+  const [haveButton] = useState(isCheckout);
 
   const totalCar = useCallback((productsLocalStorage) => {
     if (productsLocalStorage.length !== 0) {
@@ -24,9 +29,11 @@ function CheckoutTable() {
 
       return reduce;
     }
+
+    dispatch(setTotalSum(0));
   }, [dispatch]);
 
-  const updateLocalStorage = useCallback((CurrQtt, idProduct, products) => {
+  const updateLocalStorage = useCallback((idProduct, products) => {
     const newProducts = products.filter((item) => item.id !== idProduct);
 
     const productsWithQuant = newProducts
@@ -44,18 +51,7 @@ function CheckoutTable() {
 
     const products = getCarShopLocalStorage();
 
-    const RemoveQuantity = () => {
-      const productLocalStorage = products.find((item) => item.id === idNumber);
-
-      const { quantity: productQuantity } = productLocalStorage;
-      const productQt = Number(productQuantity);
-
-      return productQt > 0 ? (productQt - 1) : 0;
-    };
-
-    const newQtt = RemoveQuantity();
-
-    updateLocalStorage(newQtt, idNumber, products);
+    updateLocalStorage(idNumber, products);
   }, [updateLocalStorage]);
 
   useEffect(() => {
@@ -68,7 +64,7 @@ function CheckoutTable() {
 
   return (
     <div>
-      <h2>Finalizar Pedido</h2>
+      { isCheckout ? (<h2>Finalizar Pedido</h2>) : '' }
       <table>
         <thead>
           <tr>
@@ -82,57 +78,89 @@ function CheckoutTable() {
             <tr key={ id }>
               <td
                 data-testid={
-                  `customer_checkout__element-order-table-item-number-${index}`
+                  isCheckout
+                    ? `customer_checkout__element-order-table-item-number-${index}`
+                    : `customer_order_details__element-order-table-item-number-${index}`
                 }
               >
                 { index + 1 }
               </td>
               <td
                 data-testid={
-                  `customer_checkout__element-order-table-name-${index}`
+                  isCheckout
+                    ? `customer_checkout__element-order-table-name-${index}`
+                    : `customer_order_details__element-order-table-name-${index}`
                 }
               >
                 { name }
               </td>
               <td
                 data-testid={
-                  `customer_checkout__element-order-table-quantity-${index}`
+                  isCheckout
+                    ? `customer_checkout__element-order-table-quantity-${index}`
+                    : `customer_order_details__element-order-table-quantity-${index}`
                 }
               >
                 { quantity }
               </td>
               <td
                 data-testid={
-                  `customer_checkout__element-order-table-unit-price-${index}`
+                  isCheckout
+                    ? `customer_checkout__element-order-table-unit-price-${index}`
+                    : `customer_order_details__element-order-table-unit-price-${index}`
                 }
               >
                 { Number(price).toFixed(2).replace('.', ',') }
               </td>
               <td
                 data-testid={
-                  `customer_checkout__element-order-table-sub-total-${index}`
+                  isCheckout
+                    ? `customer_checkout__element-order-table-sub-total-${index}`
+                    : `customer_order_details__element-order-table-sub-total-${index}`
                 }
               >
                 { Number(price * quantity).toFixed(2).replace('.', ',') }
               </td>
-              <td>
-                <button
-                  type="button"
-                  id={ id }
-                  data-testid={
-                    `customer_checkout__element-order-table-remove-${index}`
-                  }
-                  onClick={ ({ target }) => handleRemoveProduct(target.id) }
-                >
-                  Remover
-                </button>
-              </td>
+              { haveButton && (
+                <td>
+                  <button
+                    type="button"
+                    id={ id }
+                    data-testid={
+                      `customer_checkout__element-order-table-remove-${index}`
+                    }
+                    onClick={ ({ target }) => handleRemoveProduct(target.id) }
+                  >
+                    Remover
+                  </button>
+                </td>
+              ) }
             </tr>
           ))}
         </tbody>
       </table>
+      <button
+        type="button"
+        data-testid="customer_products__button-cart"
+      >
+        Total: R$
+        {' '}
+        <span
+          data-testid={
+            isCheckout
+              ? 'customer_checkout__element-order-total-price'
+              : 'customer_order_details__element-order-total-price'
+          }
+        >
+          {dataTotalSum.toFixed(2).replace('.', ',')}
+        </span>
+      </button>
     </div>
   );
 }
 
-export default CheckoutTable;
+TableOrder.propTypes = {
+  isCheckout: PropTypes.bool,
+}.isRequired;
+
+export default TableOrder;
