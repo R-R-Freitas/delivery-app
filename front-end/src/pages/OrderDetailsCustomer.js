@@ -3,10 +3,9 @@ import { useLocation, useNavigate } from 'react-router-dom';
 import TableOrder from '../components/TableOrder';
 import Navbar from '../components/Navbar';
 import { api } from '../services/fechApi';
-import setToken, { getUserLocalStorage } from '../services/functions';
-import { TEN } from '../services/constants';
+import setToken, { getUserLocalStorage, serializeDate } from '../services/functions';
 
-function OrdersDetail() {
+function OrderDetailsCustomer() {
   const navigate = useNavigate();
   const { pathname } = useLocation();
   const saleId = pathname.replace('/customer/orders/', '');
@@ -54,7 +53,7 @@ function OrdersDetail() {
           data-testid="customer_order_details__element-order-details-label-order-date"
         >
           {dataSale.length !== 0
-            ? new Date(dataSale.saleDate).toLocaleString('pt-BR').slice(0, TEN) : ''}
+            ? serializeDate(dataSale.saleDate) : ''}
 
         </p>
         <p
@@ -80,4 +79,4 @@ function OrdersDetail() {
   );
 }
 
-export default OrdersDetail;
+export default OrderDetailsCustomer;

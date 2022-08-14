@@ -1,4 +1,4 @@
-import { EIGTH, FIVE, FOUR, SEVEN, TEN, ZERO } from './constants';
+import { TEN } from './constants';
 import { api } from './fechApi';
 
 const setToken = (token) => {
@@ -23,10 +23,8 @@ export const getProductsLocalStorage = () => JSON.parse(localStorage.getItem('pr
 
 export const getCarShopLocalStorage = () => JSON.parse(localStorage.getItem('carShop'));
 
-export const serializeDate = (dateRaw) => {
-  const day = dateRaw.substring(EIGTH, TEN);
-  const month = dateRaw.substring(FIVE, SEVEN);
-  const year = dateRaw.substring(ZERO, FOUR);
+export const serializeDate = (date) => {
+  const formatDate = new Date(date).toLocaleString('pt-BR').slice(0, TEN);
 
-  return `${day}/${month}/${year}`;
+  return formatDate;
 };
