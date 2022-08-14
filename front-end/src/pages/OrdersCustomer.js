@@ -37,6 +37,7 @@ function OrdersCustomer() {
             price={ sale.totalPrice }
             status={ sale.status }
             date={ serializeDate(sale.saleDate) }
+            isSale={ false }
           />
         ))
       )}
