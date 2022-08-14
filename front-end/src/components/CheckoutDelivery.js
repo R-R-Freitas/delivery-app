@@ -29,7 +29,6 @@ function CheckoutDelivery() {
         sellerId: Number(sellerId),
         saleProducts,
       };
-      console.log(objectRequest);
 
       const { data } = await api.post('/sale', objectRequest);
 

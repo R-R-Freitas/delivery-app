@@ -19,7 +19,6 @@ function OrdersCustomer() {
 
     const getSales = async () => {
       const { data } = await api.get('/sale/customer');
-      console.log(data);
 
       setDataSale(data);
     };

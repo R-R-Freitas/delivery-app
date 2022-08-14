@@ -3,7 +3,6 @@ import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 
 function CardSalesProduct({ price, status, date, id }) {
-  console.log('idItem', id);
   return (
     <Link to={ `/customer/orders/${id}` }>
       <div>
@@ -19,20 +18,17 @@ function CardSalesProduct({ price, status, date, id }) {
             data-testid={ `customer_orders__element-card-price-${id}` }
           >
             {Number(price).toFixed(2).replace('.', ',')}
-
           </span>
         </p>
         <p
           data-testid={ `customer_orders__element-delivery-status-${id}` }
         >
           {status}
-
         </p>
         <p
           data-testid={ `customer_orders__element-order-date-${id}` }
         >
           {date}
-
         </p>
       </div>
     </Link>

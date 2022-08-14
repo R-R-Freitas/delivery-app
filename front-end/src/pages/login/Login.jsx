@@ -38,7 +38,6 @@ function Login() {
 
   useEffect(() => {
     const loggedUser = getUserLocalStorage();
-    console.log(loggedUser);
 
     if (loggedUser) return navigate('/customer/products');
   }, [navigate]);
