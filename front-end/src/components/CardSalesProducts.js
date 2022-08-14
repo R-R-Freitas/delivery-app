@@ -11,28 +11,33 @@ function CardSalesProduct({ price, status, date, id, address, number, isSale }) 
             isSale ? 'seller' : 'customer'}_orders__element-order-id-${id}` }
         >
           {id}
-
         </p>
         <p
           data-testing={ `${
             isSale ? 'seller' : 'customer'}_orders__element-card-price-${id}` }
         >
           {price}
-
+        <p>
+          R$
+          {' '}
+          <span
+            data-testid={ `data-testing={ `${
+            isSale ? 'seller' : 'customer'}_orders__element-card-price-${id}` }
+          >
+            {Number(price).toFixed(2).replace('.', ',')}
+          </span>
         </p>
         <p
           data-testid={ `${
             isSale ? 'seller' : 'customer'}_orders__element-delivery-status-${id}` }
         >
           {status}
-
         </p>
         <p
           data-testid={ `${
             isSale ? 'seller' : 'customer'}_orders__element-order-date-${id}` }
         >
           {date}
-
         </p>
         {address && number && (
           <p

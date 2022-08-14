@@ -30,11 +30,7 @@ function CheckoutDelivery() {
         saleProducts,
       };
 
-      console.log(objectRequest);
       const { data } = await api.post('/sale', objectRequest);
-      console.log(data);
-
-      // if (data.role === 'seller') return navigate('/seller/orders');
 
       navigate(`/customer/orders/${data.saleId}`);
     } catch (error) {
@@ -44,11 +40,8 @@ function CheckoutDelivery() {
 
   useEffect(() => {
     const getUsers = async () => {
-      const { data } = await api.get('/admin/users');
-
-      const filteredSellers = data.filter(({ role }) => role === 'seller');
-
-      setSellers(filteredSellers);
+      const { data } = await api.get('/user/seller');
+      setSellers(data);
     };
 
     getUsers();

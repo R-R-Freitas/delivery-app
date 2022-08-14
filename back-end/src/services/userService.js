@@ -34,6 +34,14 @@ const findAll = async () => {
   return allUsers;
 };
 
+const findAllByRole = async (role) => {
+  const allUsers = await user.findAll({
+    where: { role },
+    attributes: { exclude: ['password', 'email'] },
+  });
+  return allUsers;
+};
+
 const destroy = async (id) => {
   const deletion = await user.destroy({ where: { id } });
   if (!deletion) throw errorObject(404, 'Não encontrado');
@@ -45,4 +53,5 @@ module.exports = {
   login,
   findAll,
   destroy,
+  findAllByRole,
 };
