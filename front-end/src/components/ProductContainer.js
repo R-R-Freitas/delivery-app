@@ -19,9 +19,9 @@ function ProductContainer({ product }) {
 
   const [quantity, setQuantity] = useState(() => getQuantity());
 
-  const totalCar = useCallback((productsLocalStorage) => {
+  const totalCar = useCallback(async (productsLocalStorage) => {
     if (productsLocalStorage.length !== 0) {
-      const reduce = productsLocalStorage.reduce((acc, item) => {
+      const reduce = await productsLocalStorage.reduce((acc, item) => {
         const totalValueProduct = item.quantity * Number(item.price);
 
         return acc + totalValueProduct;
@@ -33,10 +33,10 @@ function ProductContainer({ product }) {
     }
   }, [dispatch]);
 
-  const updateLocalStorage = useCallback((CurrQtt, idProduct, products) => {
+  const updateLocalStorage = useCallback(async (CurrQtt, idProduct, products) => {
     if (CurrQtt < 0) setQuantity(0);
 
-    const newProducts = products.map((item) => {
+    const newProducts = await products.map((item) => {
       if (item.id === idProduct) {
         return {
           ...item,

@@ -1,8 +1,8 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { MIN_LENGTH_PASSWORD } from '../../services/constants';
 import signIn from '../../services/fechApi';
-import { saveLocalStorage } from '../../services/functions';
+import { getUserLocalStorage, saveLocalStorage } from '../../services/functions';
 
 function Login() {
   const navigate = useNavigate();
@@ -35,6 +35,12 @@ function Login() {
       setError(true);
     }
   };
+
+  useEffect(() => {
+    const loggedUser = getUserLocalStorage();
+
+    if (loggedUser) return navigate('/customer/products');
+  }, [navigate]);
 
   return (
     <div>
