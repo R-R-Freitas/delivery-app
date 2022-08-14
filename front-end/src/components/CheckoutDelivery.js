@@ -40,11 +40,8 @@ function CheckoutDelivery() {
 
   useEffect(() => {
     const getUsers = async () => {
-      const { data } = await api.get('/admin/users');
-
-      const filteredSellers = data.filter(({ role }) => role === 'seller');
-
-      setSellers(filteredSellers);
+      const { data } = await api.get('/user/seller');
+      setSellers(data);
     };
 
     getUsers();
