@@ -17,6 +17,9 @@ router.post('/',
   rescue(user.createByAdmin));
 
 router.get('/users',
+[
+  rescue(authToken),
+],
   rescue(user.findAll));
 
 router.delete('/users/:id',

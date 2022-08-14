@@ -2,6 +2,7 @@ const express = require('express');
 const errorMiddleware = require('../middlewares/errorMiddleware');
 const register = require('../routes/register');
 const login = require('../routes/login');
+const user = require('../routes/user');
 const product = require('../routes/product');
 const sale = require('../routes/sale');
 const admin = require('../routes/admin');
@@ -21,6 +22,7 @@ app.use(accessControl);
 
 app.use('/login', login);
 app.use('/register', register);
+app.use('/user', user);
 app.use('/product', product);
 app.use('/sale', sale);
 app.use('/admin', admin);
