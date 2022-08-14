@@ -9,7 +9,7 @@ function CardSalesProduct({ price, status, date, id, address, number, isSale }) 
     <Link to={ `/${isSale ? 'seller' : 'customer'}/orders/${id}` }>
       <div>
         <p
-          data-testing={ `${
+          data-testid={ `${
             isSale ? 'seller' : 'customer'}_orders__element-order-id-${id}` }
         >
           {id}
