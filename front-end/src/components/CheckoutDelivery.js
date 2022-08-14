@@ -9,7 +9,7 @@ function CheckoutDelivery() {
   const totalPrice = useSelector(({ totalSum }) => totalSum);
 
   const [sellers, setSellers] = useState([]);
-  const [sellerId, setSellerId] = useState(1);
+  const [sellerId, setSellerId] = useState(2);
   const [deliveryAddress, setDeliveryAddress] = useState('');
   const [deliveryNumber, setDeliveryNumber] = useState('');
 
