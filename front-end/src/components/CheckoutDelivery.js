@@ -9,7 +9,7 @@ function CheckoutDelivery() {
   const totalPrice = useSelector(({ totalSum }) => totalSum);
 
   const [sellers, setSellers] = useState([]);
-  const [sellerId, setSellerId] = useState(1);
+  const [sellerId, setSellerId] = useState(2);
   const [deliveryAddress, setDeliveryAddress] = useState('');
   const [deliveryNumber, setDeliveryNumber] = useState('');
 
@@ -29,12 +29,9 @@ function CheckoutDelivery() {
         sellerId: Number(sellerId),
         saleProducts,
       };
-
       console.log(objectRequest);
-      const { data } = await api.post('/sale', objectRequest);
-      console.log(data);
 
-      // if (data.role === 'seller') return navigate('/seller/orders');
+      const { data } = await api.post('/sale', objectRequest);
 
       navigate(`/customer/orders/${data.saleId}`);
     } catch (error) {
