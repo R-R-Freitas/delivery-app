@@ -3,6 +3,8 @@ import { useNavigate } from 'react-router-dom';
 import { MIN_LENGTH_NAME, MIN_LENGTH_PASSWORD } from '../services/constants';
 import { api } from '../services/fechApi';
 import { saveLocalStorage } from '../services/functions';
+import { Button, ErrorMessage, Form, FormContainer, Input,
+  Label, Title } from '../styles/Login';
 
 function Register() {
   const navigate = useNavigate();
@@ -42,58 +44,58 @@ function Register() {
   }, [email, name, password]);
 
   return (
-    <div>
-      <h1>Cadastro</h1>
-      <form>
-        <label htmlFor="name-input">
+    <FormContainer>
+      <Form>
+        <Title>Cadastro</Title>
+        <Label htmlFor="name-input">
           Nome
-          <input
+          <Input
             data-testid="common_register__input-name"
             type="text"
             value={ name }
             onChange={ ({ target: { value } }) => setName(value) }
             placeholder="Seu nome"
           />
-        </label>
+        </Label>
 
-        <label htmlFor="email-input">
+        <Label htmlFor="email-input">
           Email
-          <input
+          <Input
             data-testid="common_register__input-email"
             type="text"
             value={ email }
             onChange={ ({ target: { value } }) => setEmail(value) }
             placeholder="seu-email@site.com.br"
           />
-        </label>
+        </Label>
 
-        <label htmlFor="password-input">
+        <Label htmlFor="password-input">
           Senha
-          <input
+          <Input
             data-testid="common_register__input-password"
             type="password"
             value={ password }
             onChange={ ({ target: { value } }) => setPassword(value) }
-            placeholder="Senha"
+            placeholder="******"
           />
-        </label>
+        </Label>
 
-        <button
+        <Button
           data-testid="common_register__button-register"
           type="button"
           onClick={ handleSubmit }
           disabled={ isDisabled }
         >
           CADASTRAR
-        </button>
-      </form>
+        </Button>
+      </Form>
       { registerFailed ? (
-        <p data-testid="common_register__element-invalid_register">
-          Dados já cadastrados.
-        </p>
+        <ErrorMessage data-testid="common_register__element-invalid_register">
+          ⚠️ Dados já cadastrados.
+        </ErrorMessage>
       )
         : null }
-    </div>
+    </FormContainer>
   );
 }
 
