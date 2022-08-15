@@ -29,6 +29,7 @@ const login = async (email, pwd) => {
 
 const findAll = async () => {
   const allUsers = await user.findAll({
+    where: { role: { [Op.ne]: 'administrator' } },
     attributes: { exclude: ['password'] },
   });
   return allUsers;
