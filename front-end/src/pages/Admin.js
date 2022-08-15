@@ -3,7 +3,8 @@ import { useNavigate } from 'react-router-dom';
 import Navbar from '../components/Navbar';
 import { MIN_LENGTH_NAME, MIN_LENGTH_PASSWORD } from '../services/constants';
 import { api } from '../services/fechApi';
-import setToken, { getUserLocalStorage, saveLocalStorage } from '../services/functions';
+import setToken, { getUserLocalStorage } from '../services/functions';
+import CardUser from '../components/CardUser';
 
 function Admin() {
   const navigate = useNavigate();
@@ -14,26 +15,30 @@ function Admin() {
   const [role, setRole] = useState('seller');
   const [isDisabled, setIsDisabled] = useState(true);
   const [registerFailed, setRegisterFailed] = useState(false);
+  const [registerSuccess, setRegisterSuccess] = useState(false);
+  const [users, setUsers] = useState();
 
   const handleSubmit = async () => {
     try {
       console.log({ name, email, password, role });
-      const { data } = await api.post('/admin', { name, email, password, role });
-
-      saveLocalStorage(data);
-
-      // setName('');
-      // setEmail('');
-      // setPassword('');
-
-      // if (data.role === 'seller') return navigate('/seller/orders');
-
-      // navigate('/customer/products');
+      await api.post('/admin', { name, email, password, role });
+      setRegisterSuccess(true);
     } catch (error) {
       console.log(error);
 
       setRegisterFailed(true);
     }
+  };
+
+  const getUsers = async () => {
+    await api.get('/admin/users').then((response) => {
+      setUsers(response.data);
+    });
+  };
+
+  const remove = async (id) => {
+    await api.delete(`/admin/users/${id}`);
+    getUsers();
   };
 
   useEffect(() => {
@@ -42,6 +47,7 @@ function Admin() {
     if (!token) return navigate('/');
 
     setToken(token);
+    getUsers();
   }, [navigate]);
 
   useEffect(() => {
@@ -57,6 +63,11 @@ function Admin() {
 
     return setIsDisabled(true);
   }, [email, name, password, role]);
+
+  useEffect(() => {
+    getUsers();
+    setRegisterSuccess(false);
+  }, [registerSuccess]);
 
   return (
     <div>
@@ -124,7 +135,18 @@ function Admin() {
         </p>
       )
         : null }
-
+      <div>
+        { users && users.map((user) => (
+          <CardUser
+            key={ user.id }
+            id={ user.id }
+            name={ user.name }
+            email={ user.email }
+            role={ user.role }
+            remove={ remove }
+          />
+        ))}
+      </div>
     </div>
   );
 }
