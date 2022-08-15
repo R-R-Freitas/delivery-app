@@ -18,6 +18,7 @@ function TableOrder({ isCheckout }) {
   const [haveButton] = useState(isCheckout);
 
   const totalCar = useCallback((productsLocalStorage) => {
+    console.log(productsLocalStorage);
     if (productsLocalStorage.length !== 0) {
       const reduce = productsLocalStorage.reduce((acc, item) => {
         const totalValueProduct = item.quantity * Number(item.price);
@@ -57,7 +58,11 @@ function TableOrder({ isCheckout }) {
   useEffect(() => {
     const products = getCarShopLocalStorage();
 
-    totalCar(products);
+    console.log(products);
+
+    if (products) {
+      totalCar(products);
+    }
 
     return setProductsWithQtt(products);
   }, [totalCar]);
@@ -74,44 +79,85 @@ function TableOrder({ isCheckout }) {
           </tr>
         </thead>
         <tbody>
-          {productsWithQtt.map(({ id, name, price, quantity }, index) => (
+          {productsWithQtt?.map(({ id, name, price, quantity }, index) => (
             <tr key={ id }>
-              <td
-                data-testid={
-                  isCheckout
-                    ? `customer_checkout__element-order-table-item-number-${index}`
-                    : `customer_order_details__element-order-table-item-number-${index}`
-                }
-              >
-                { index + 1 }
-              </td>
-              <td
-                data-testid={
-                  isCheckout
-                    ? `customer_checkout__element-order-table-name-${index}`
-                    : `customer_order_details__element-order-table-name-${index}`
-                }
-              >
-                { name }
-              </td>
-              <td
-                data-testid={
-                  isCheckout
-                    ? `customer_checkout__element-order-table-quantity-${index}`
-                    : `customer_order_details__element-order-table-quantity-${index}`
-                }
-              >
-                { quantity }
-              </td>
-              <td
-                data-testid={
-                  isCheckout
-                    ? `customer_checkout__element-order-table-unit-price-${index}`
-                    : `customer_order_details__element-order-table-unit-price-${index}`
-                }
-              >
-                { Number(price).toFixed(2).replace('.', ',') }
-              </td>
+              {isCheckout ? (
+                <td
+                  data-testid={
+                    isCheckout
+                      ? `customer_checkout__element-order-table-item-number-${index}`
+                      : `customer_order_details__element-order-table-item-number-${index}`
+                  }
+                >
+                  { index + 1 }
+                </td>
+              ) : (
+                <td
+                  data-testid={
+                    `seller_order_details__element-order-table-item-number-${index}`
+                  }
+                >
+                  { index + 1 }
+                </td>
+              )}
+              {isCheckout ? (
+                <td
+                  data-testid={
+                    isCheckout
+                      ? `customer_checkout__element-order-table-name-${index}`
+                      : `customer_order_details__element-order-table-name-${index}`
+
+                  }
+                >
+                  { name }
+                </td>
+              ) : (
+                <td
+                  data-testid={
+                    `seller_order_details__element-order-table-name-${index}`
+                  }
+                >
+                  { name }
+                </td>
+              )}
+              {isCheckout ? (
+                <td
+                  data-testid={
+                    isCheckout
+                      ? `customer_checkout__element-order-table-quantity-${index}`
+                      : `customer_order_details__element-order-table-quantity-${index}`
+                  }
+                >
+                  { quantity }
+                </td>
+              ) : (
+                <td
+                  data-testid={
+                    `seller_order_details__element-order-table-quantity-${index}`
+                  }
+                >
+                  { quantity }
+                </td>
+              )}
+              {isCheckout ? (
+                <td
+                  data-testid={
+                    isCheckout
+                      ? `customer_checkout__element-order-table-unit-price-${index}`
+                      : `customer_order_details__element-order-table-unit-price-${index}`
+                  }
+                >
+                  { Number(price).toFixed(2).replace('.', ',') }
+                </td>
+              ) : (
+                <td
+                  data-testid={
+                    `seller_order_details__element-order-table-unit-price-${index}`
+                  }
+                >
+                  { Number(price).toFixed(2).replace('.', ',') }
+                </td>
+              )}
               <td
                 data-testid={
                   isCheckout
@@ -161,6 +207,7 @@ function TableOrder({ isCheckout }) {
 
 TableOrder.propTypes = {
   isCheckout: PropTypes.bool,
+  isSale: PropTypes.bool,
 }.isRequired;
 
 export default TableOrder;

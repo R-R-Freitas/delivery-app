@@ -4,11 +4,11 @@ import Admin from './pages/Admin';
 import Checkout from './pages/Checkout';
 import Login from './pages/login/Login';
 import OrderDetailsCustomer from './pages/OrderDetailsCustomer';
+import OrderDetailsSeller from './pages/OrderDetailsSeller';
 import OrdersCustomer from './pages/OrdersCustomer';
 import OrdersSeller from './pages/OrdersSeller';
 import ProductsCustomer from './pages/ProductsCustomer';
 import Register from './pages/Register';
-import SalesDetails from './pages/SalesDetails';
 
 function App() {
   return (
@@ -21,7 +21,7 @@ function App() {
       <Route exact path="/customer/orders/:id" element={ <OrderDetailsCustomer /> } />
       <Route exact path="/customer/orders" element={ <OrdersCustomer /> } />
       <Route exact path="/seller/orders" element={ <OrdersSeller /> } />
-      <Route exact path="/seller/orders/:id" element={ <SalesDetails /> } />
+      <Route exact path="/seller/orders/:id" element={ <OrderDetailsSeller /> } />
       <Route exact path="/admin/manage" element={ <Admin /> } />
     </Routes>
   );
