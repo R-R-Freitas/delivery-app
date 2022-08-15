@@ -9,14 +9,10 @@ function CardUser({ id, name, email, role, remove }) {
       >
         {id}
       </p>
-      <p>
-        R$:
-        {' '}
-        <span
-          data-testid={ `admin_manage__element-user-table-name-${id}` }
-        >
-          {name}
-        </span>
+      <p
+        data-testid={ `admin_manage__element-user-table-name-${id}` }
+      >
+        {name}
       </p>
       <p
         data-testid={ `admin_manage__element-user-table-email-${id}` }
