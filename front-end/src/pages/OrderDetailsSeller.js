@@ -12,6 +12,8 @@ function OrderDetailsSeller() {
 
   const [dataSale, setDataSales] = useState([]);
 
+  const status = 'status';
+
   console.log(dataSale);
 
   useEffect(() => {
@@ -32,7 +34,7 @@ function OrderDetailsSeller() {
 
   return (
     <div>
-      <Navbar item1="PEDIDOS" />
+      <Navbar item2="PEDIDOS" />
       <h1>Detalhes do Pedido</h1>
       <div>
         <p data-testid="seller_order_details__element-order-details-label-order-id">
@@ -47,7 +49,7 @@ function OrderDetailsSeller() {
         </p>
         <p
           data-testid={
-            `seller_order_details__element-order-details-label-delivery-${''}`
+            `seller_order_details__element-order-details-label-delivery-${status}`
           }
         >
           {dataSale.length !== 0 ? dataSale.status : ''}
@@ -60,13 +62,13 @@ function OrderDetailsSeller() {
         </button>
         <button
           type="button"
-          data-testid="seller_order_details__button-delivery-check"
+          data-testid="seller_order_details__button-dispatch-check"
         >
           SAIU PARA ENTREGA
         </button>
       </div>
       <div>
-        <TableOrder />
+        <TableOrder isSale />
       </div>
     </div>
   );
