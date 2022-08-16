@@ -1,6 +1,6 @@
 import styled from 'styled-components';
-import { DARK_BROWN, LIGHT_BROWN, GRAY, MEDIUM_BROWN,
-  REDDISH_BROWN, WHITE } from './Colors';
+import { DARK_BROWN, GRAY, LIGHT_BROWN,
+  MEDIUM_BROWN, REDDISH_BROWN, WHITE } from './Colors';
 
 export const FormContainer = styled.div`
   align-items: center;

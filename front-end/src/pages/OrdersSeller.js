@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import { api } from '../services/fechApi';
 import CardSalesProduct from '../components/CardSalesProducts';
 import Navbar from '../components/Navbar';
-import setToken, { getUserLocalStorage } from '../services/functions';
+import setToken, { getUserLocalStorage, serializeDate } from '../services/functions';
 
 function OrdersSeller() {
   const navigate = useNavigate();
@@ -34,7 +34,7 @@ function OrdersSeller() {
           price={ sale.totalPrice }
           address={ sale.deliveryAddress }
           number={ sale.deliveryNumber }
-          date={ sale.saleDate }
+          date={ serializeDate(sale.saleDate) }
           status={ sale.status }
           isSale
         />
