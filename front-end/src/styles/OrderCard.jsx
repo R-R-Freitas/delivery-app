@@ -1,6 +1,6 @@
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
-import { BEIGE, LIGTH_BEIGE, LIGTH_GRAY, YELLOW } from './Colors';
+import { BEIGE, BEIGE2, LIGTH_BEIGE, LIGTH_GRAY, YELLOW } from './Colors';
 
 export const OrderContainer = styled.div`
   display: flex;
@@ -13,7 +13,7 @@ export const OrderContainer = styled.div`
 
 export const LinkCard = styled(Link)`
   align-items: center;
-  background-color: ${BEIGE};
+  background-color: ${BEIGE2};
   border: 1px solid ${LIGTH_GRAY};
   border-radius: 5px;
   box-shadow: 3px 3px 10px ${LIGTH_GRAY};
@@ -53,7 +53,7 @@ export const Status = styled.p`
 `;
 
 export const TextOrder = styled(Status)`
-  background-color: ${BEIGE};;
+  background-color: ${BEIGE};
   font-size: 1rem;
   margin: 5px;
   padding: 0.3em;
