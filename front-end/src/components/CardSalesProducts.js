@@ -1,32 +1,31 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { OrderCard, ColumnContainer, LinkCard,
-  StatusContainer, Status } from '../styles/OrderCard';
+import { ColumnContainer, LinkCard,
+  StatusContainer, Status, TextOrder } from '../styles/OrderCard';
 
 function CardSalesProduct({ price, status, date, id, address, number, isSale }) {
   return (
     <LinkCard to={ `/${isSale ? 'seller' : 'customer'}/orders/${id}` }>
-      <OrderCard>
+      <ColumnContainer>
+        Pedido
+        {' '}
+        <span
+          data-testid={ `${
+            isSale ? 'seller' : 'customer'}_orders__element-order-id-${id}` }
+        >
+          {id}
+        </span>
+      </ColumnContainer>
+      <StatusContainer>
+        <Status
+          data-testid={ `${
+            isSale ? 'seller' : 'customer'}_orders__element-delivery-status-${id}` }
+        >
+          {status}
+        </Status>
+
         <ColumnContainer>
-          Pedido
-          {' '}
-          <span
-            data-testid={ `${
-              isSale ? 'seller' : 'customer'}_orders__element-order-id-${id}` }
-          >
-            {id}
-          </span>
-        </ColumnContainer>
-        <StatusContainer>
-          <Status
-            data-testid={ `${
-              isSale ? 'seller' : 'customer'}_orders__element-delivery-status-${id}` }
-          >
-            {status}
-          </Status>
-        </StatusContainer>
-        <ColumnContainer>
-          <p>
+          <TextOrder>
             R$
             {' '}
             <span
@@ -35,25 +34,24 @@ function CardSalesProduct({ price, status, date, id, address, number, isSale }) 
             >
               {Number(price).toFixed(2).replace('.', ',')}
             </span>
-          </p>
-          <p
+          </TextOrder>
+          <TextOrder
             data-testid={ `${
               isSale ? 'seller' : 'customer'}_orders__element-order-date-${id}` }
           >
             {date}
-          </p>
+          </TextOrder>
         </ColumnContainer>
-        {address && number && (
-          <p
-            data-testid={ `seller_orders__element-card-address-${id}` }
-          >
-            {address}
-            ,
-            {number}
-          </p>
-        )}
-
-      </OrderCard>
+      </StatusContainer>
+      {address && number && (
+        <p
+          data-testid={ `seller_orders__element-card-address-${id}` }
+        >
+          {address}
+          ,
+          {number}
+        </p>
+      )}
     </LinkCard>
   );
 }

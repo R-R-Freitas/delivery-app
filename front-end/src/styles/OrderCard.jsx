@@ -1,6 +1,6 @@
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
-import { BEIGE, YELLOW } from './Colors';
+import { BEIGE, LIGTH_BEIGE, LIGTH_GRAY, YELLOW } from './Colors';
 
 export const OrderContainer = styled.div`
   display: flex;
@@ -12,12 +12,9 @@ export const OrderContainer = styled.div`
 `;
 
 export const LinkCard = styled(Link)`
-  text-decoration: none;
-`;
-
-export const OrderCard = styled.div`
   align-items: center;
   background-color: ${BEIGE};
+  border: 1px solid ${LIGTH_GRAY};
   border-radius: 5px;
   color: #342723;
   display: flex;
@@ -25,6 +22,7 @@ export const OrderCard = styled.div`
   justify-content: space-evenly;
   margin: 1rem;
   width: 22rem;
+  text-decoration: none;
 `;
 
 export const ColumnContainer = styled.div`
@@ -35,8 +33,13 @@ export const ColumnContainer = styled.div`
 
 export const StatusContainer = styled.div`
   align-items: center;
+  background-color: ${LIGTH_BEIGE};
+  border-left: 1px solid ${LIGTH_GRAY};
+  border-top-right-radius: 5px;
   display: flex;
   height: 100%;
+  margin-right: -8%;
+  padding-right: 0.6em;
 `;
 
 export const Status = styled.p`
@@ -46,4 +49,11 @@ export const Status = styled.p`
   font-weight: bold;
   margin: auto 5px;
   padding: 0.8em;
+`;
+
+export const TextOrder = styled(Status)`
+  background-color: ${BEIGE};;
+  font-size: 1rem;
+  margin: 5px;
+  padding: 0.3em;
 `;
