@@ -11,8 +11,7 @@ function OrderDetailsSeller() {
   const saleId = pathname.replace('/seller/orders/', '');
 
   const [dataSale, setDataSales] = useState([]);
-
-  const status = 'status';
+  const [status, setStatus] = useState('');
 
   console.log(dataSale);
 
@@ -27,10 +26,16 @@ function OrderDetailsSeller() {
       const { data } = await api.get(`/sale/${saleId}`);
 
       setDataSales(data);
+      setStatus(data.status);
     };
 
     getSaleById();
-  }, [navigate, saleId]);
+  }, [navigate, saleId, status]);
+
+  const updateStatus = async (newStatus) => {
+    await api.put(`/sale/${saleId}`, { status: newStatus });
+    setStatus(newStatus);
+  };
 
   return (
     <div>
@@ -48,21 +53,23 @@ function OrderDetailsSeller() {
 
         </p>
         <p
-          data-testid={
-            `seller_order_details__element-order-details-label-delivery-${status}`
-          }
+          data-testid="seller_order_details__element-order-details-label-delivery-status}"
         >
           {dataSale.length !== 0 ? dataSale.status : ''}
         </p>
         <button
           type="button"
           data-testid="seller_order_details__button-preparing-check"
+          disabled={ status !== 'Pendente' }
+          onClick={ () => updateStatus('Preparando') }
         >
           PREPARAR PEDIDO
         </button>
         <button
           type="button"
           data-testid="seller_order_details__button-dispatch-check"
+          disabled={ status !== 'Preparando' }
+          onClick={ () => updateStatus('Em Trânsito') }
         >
           SAIU PARA ENTREGA
         </button>
