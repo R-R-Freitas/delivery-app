@@ -16,6 +16,7 @@ export const LinkCard = styled(Link)`
   background-color: ${BEIGE};
   border: 1px solid ${LIGTH_GRAY};
   border-radius: 5px;
+  box-shadow: 3px 3px 10px ${LIGTH_GRAY};
   color: #342723;
   display: flex;
   height: 6rem;
