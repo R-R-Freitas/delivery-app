@@ -1,7 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Link, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { clearLocalStorage, getUserLocalStorage } from '../services/functions';
+import { NavButton, NavContainer, NavLink, NavName } from '../styles/Navbar';
 
 function Navbar({ item1, item2, item3 }) {
   const navigate = useNavigate();
@@ -14,31 +15,31 @@ function Navbar({ item1, item2, item3 }) {
   };
 
   return (
-    <div>
-      <Link
+    <NavContainer>
+      <NavLink
         to="/customer/products"
         data-testid="customer_products__element-navbar-link-products"
       >
         { item1 }
-      </Link>
-      <Link
+      </NavLink>
+      <NavLink
         to="/customer/orders"
         data-testid="customer_products__element-navbar-link-orders"
       >
         { item2 }
-      </Link>
-      <Link to="/">{ item3 }</Link>
-      <p data-testid="customer_products__element-navbar-user-full-name">
+      </NavLink>
+      <NavLink to="/">{ item3 }</NavLink>
+      <NavName data-testid="customer_products__element-navbar-user-full-name">
         { dataUser.name }
-      </p>
-      <button
+      </NavName>
+      <NavButton
         type="button"
         data-testid="customer_products__element-navbar-link-logout"
         onClick={ handleLogout }
       >
         Sair
-      </button>
-    </div>
+      </NavButton>
+    </NavContainer>
   );
 }
 

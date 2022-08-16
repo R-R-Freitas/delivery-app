@@ -1,5 +1,6 @@
 import styled from 'styled-components';
-import { DARK_BROWN, LIGHTER_BROWN, LIGHTER_GRAY, MEDIUM_BROWN, REDDISH_BROWN, WHITE } from './Colors';
+import { DARK_BROWN, LIGHT_BROWN, GRAY, MEDIUM_BROWN,
+  REDDISH_BROWN, WHITE } from './Colors';
 
 export const FormContainer = styled.div`
   align-items: center;
@@ -19,9 +20,9 @@ export const Title = styled.h1`
 
 export const Form = styled.div`
   align-items: center;
-  background-color: ${LIGHTER_BROWN};
+  background-color: ${LIGHT_BROWN};
   border-radius: 0.2em;
-  box-shadow: 3px 3px 10px ${LIGHTER_GRAY};
+  box-shadow: 3px 3px 10px ${GRAY};
   display: flex;
   flex-direction: column;
   justify-content: center;
