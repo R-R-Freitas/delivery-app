@@ -6,7 +6,8 @@ export const OrderContainer = styled(FormContainer)`
   align-items: stretch;
   background-image: none;
   justify-content: flex-start;
-  margin-top: 3rem;
+  height: auto;
+  margin-top: 1rem;
 `;
 
 export const TitleCheckout = styled.h1`

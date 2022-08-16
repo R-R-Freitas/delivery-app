@@ -3,6 +3,9 @@ import { useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { api } from '../services/fechApi';
 import { getCarShopLocalStorage } from '../services/functions';
+import { DeliveryContainer, DeliveryForm, TitleDelivery, FinishButton,
+  DeliveryInput, DeliverySelect, DeliveryLabel,
+  InputsContainer } from '../styles/CheckoutForm';
 
 function CheckoutDelivery() {
   const navigate = useNavigate();
@@ -48,54 +51,58 @@ function CheckoutDelivery() {
   }, []);
 
   return (
-    <form>
-      <h1>Detalhes e Endereço para entrega</h1>
+    <DeliveryContainer>
+      <TitleDelivery>Detalhes e Endereço para entrega</TitleDelivery>
+      <DeliveryForm>
+        <InputsContainer>
+          <DeliveryLabel htmlFor="seller-input">
+            P. Vendedora Responsável
+            <DeliverySelect
+              data-testid="customer_checkout__select-seller"
+              value={ sellerId }
+              onChange={ ({ target: { value } }) => setSellerId(value) }
+            >
+              {sellers.map(({ id, name: sellerName }) => (
+                <option key={ id } value={ id }>
+                  { sellerName }
+                </option>
+              ))}
+            </DeliverySelect>
+          </DeliveryLabel>
 
-      <label htmlFor="seller-input">
-        P. Vendedora Responsável
-        <select
-          data-testid="customer_checkout__select-seller"
-          value={ sellerId }
-          onChange={ ({ target: { value } }) => setSellerId(value) }
+          <DeliveryLabel htmlFor="address-input">
+            Endereço
+            <DeliveryInput
+              address
+              data-testid="customer_checkout__input-address"
+              type="text"
+              value={ deliveryAddress }
+              onChange={ ({ target: { value } }) => setDeliveryAddress(value) }
+              placeholder="Travessa Terceira da Castanheira, Bairro Muruci"
+            />
+          </DeliveryLabel>
+
+          <DeliveryLabel htmlFor="deliveryNumber-input">
+            Número
+            <DeliveryInput
+              data-testid="customer_checkout__input-addressNumber"
+              type="text"
+              value={ deliveryNumber }
+              onChange={ ({ target: { value } }) => setDeliveryNumber(value) }
+              placeholder="198"
+            />
+          </DeliveryLabel>
+        </InputsContainer>
+
+        <FinishButton
+          data-testid="customer_checkout__button-submit-order"
+          type="button"
+          onClick={ handleSubmit }
         >
-          {sellers.map(({ id, name: sellerName }) => (
-            <option key={ id } value={ id }>
-              { sellerName }
-            </option>
-          ))}
-        </select>
-      </label>
-
-      <label htmlFor="address-input">
-        Endereço
-        <input
-          data-testid="customer_checkout__input-address"
-          type="text"
-          value={ deliveryAddress }
-          onChange={ ({ target: { value } }) => setDeliveryAddress(value) }
-          placeholder="Travessa Terceira da Castanheira, Bairro Muruci"
-        />
-      </label>
-
-      <label htmlFor="deliveryNumber-input">
-        Número
-        <input
-          data-testid="customer_checkout__input-addressNumber"
-          type="text"
-          value={ deliveryNumber }
-          onChange={ ({ target: { value } }) => setDeliveryNumber(value) }
-          placeholder="198"
-        />
-      </label>
-
-      <button
-        data-testid="customer_checkout__button-submit-order"
-        type="button"
-        onClick={ handleSubmit }
-      >
-        FINALIZAR PEDIDO
-      </button>
-    </form>
+          FINALIZAR PEDIDO
+        </FinishButton>
+      </DeliveryForm>
+    </DeliveryContainer>
   );
 }
 
