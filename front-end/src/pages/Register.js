@@ -88,13 +88,12 @@ function Register() {
         >
           CADASTRAR
         </Button>
+        { registerFailed && (
+          <ErrorMessage data-testid="common_register__element-invalid_register">
+            ⚠️ Dados já cadastrados.
+          </ErrorMessage>
+        )}
       </Form>
-      { registerFailed ? (
-        <ErrorMessage data-testid="common_register__element-invalid_register">
-          ⚠️ Dados já cadastrados.
-        </ErrorMessage>
-      )
-        : null }
     </FormContainer>
   );
 }
