@@ -11,4 +11,5 @@ export const RED = '#da060b';
 export const YELLOW = '#ffde26';
 export const GRAY = '#525254';
 export const LIGTH_GRAY = '#c7c7c7';
+export const LIGTHER_GRAY = '#e7e5e5';
 export const WHITE = '#ffffff';
