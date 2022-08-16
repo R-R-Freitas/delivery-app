@@ -17,6 +17,7 @@ export const TitleCheckout = styled.h1`
 `;
 
 export const TableContainer = styled.table`
+  border: 1px solid ${LIGTHER_GRAY};
   border-collapse: collapse;
   font-size: 1rem;
   width: 90%;
