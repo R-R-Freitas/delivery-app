@@ -1,8 +1,9 @@
 import styled from 'styled-components';
-import { DARK_GREEN, LIGHTER_GRAY, LIGHTER_GREEN, MEDIUM_GREEN, WHITE } from './Colors';
+import { DARK_BLUE, LIGHTER_BLUE, LIGHTER_GRAY, MEDIUM_BLUE, WHITE } from './Colors';
 
 export const FormContainer = styled.div`
   align-items: center;
+  background-image: url("backgroundDrink.png");
   display: flex;
   flex-direction: column;
   height: 100vh;
@@ -11,14 +12,15 @@ export const FormContainer = styled.div`
 `;
 
 export const Title = styled.h1`
-  color: ${DARK_GREEN};
+  color: ${DARK_BLUE};
   font-size: 2rem;
   margin-bottom: 0.5rem;
 `;
 
 export const Form = styled.div`
   align-items: center;
-  background-color: ${LIGHTER_GREEN};
+  background-color: ${LIGHTER_BLUE};
+  border-radius: 0.2em;
   box-shadow: 3px 3px 10px ${LIGHTER_GRAY};
   display: flex;
   flex-direction: column;
@@ -45,7 +47,7 @@ export const Input = styled.input`
 `;
 
 export const Button = styled.button`
-  background-color: ${MEDIUM_GREEN};
+  background-color: ${MEDIUM_BLUE};
   border-radius: 5px;
   color: ${WHITE};
   font-weight: bold;
