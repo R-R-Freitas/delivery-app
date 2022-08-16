@@ -9,6 +9,7 @@ import OrdersCustomer from './pages/OrdersCustomer';
 import OrdersSeller from './pages/OrdersSeller';
 import ProductsCustomer from './pages/ProductsCustomer';
 import Register from './pages/Register';
+import './styles/App.css';
 
 function App() {
   return (
