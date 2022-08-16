@@ -12,4 +12,5 @@ export const YELLOW = '#ffde26';
 export const GRAY = '#525254';
 export const LIGTH_GRAY = '#c7c7c7';
 export const LIGTHER_GRAY = '#dfdfdf';
+export const LIGTHER_GRAY2 = '#f7f7f7';
 export const WHITE = '#ffffff';
