@@ -1,9 +1,9 @@
 import styled from 'styled-components';
-import { DARK_BLUE, LIGHTER_BLUE, LIGHTER_GRAY, MEDIUM_BLUE, WHITE } from './Colors';
+import { DARK_BROWN, LIGHTER_BROWN, LIGHTER_GRAY, MEDIUM_BROWN, WHITE } from './Colors';
 
 export const FormContainer = styled.div`
   align-items: center;
-  background-image: url("backgroundDrink.png");
+  background-image: url("cervejas.png");
   display: flex;
   flex-direction: column;
   height: 100vh;
@@ -12,14 +12,14 @@ export const FormContainer = styled.div`
 `;
 
 export const Title = styled.h1`
-  color: ${DARK_BLUE};
+  color: ${DARK_BROWN};
   font-size: 2rem;
   margin-bottom: 0.5rem;
 `;
 
 export const Form = styled.div`
   align-items: center;
-  background-color: ${LIGHTER_BLUE};
+  background-color: ${LIGHTER_BROWN};
   border-radius: 0.2em;
   box-shadow: 3px 3px 10px ${LIGHTER_GRAY};
   display: flex;
@@ -30,7 +30,7 @@ export const Form = styled.div`
 `;
 
 export const Label = styled.label`
-  color: #1c472f;
+  color: ${DARK_BROWN};
   display: flex;
   flex-direction: column;
   margin: 0.5rem 0;
@@ -47,7 +47,7 @@ export const Input = styled.input`
 `;
 
 export const Button = styled.button`
-  background-color: ${MEDIUM_BLUE};
+  background-color: ${MEDIUM_BROWN};
   border-radius: 5px;
   color: ${WHITE};
   font-weight: bold;
