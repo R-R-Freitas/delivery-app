@@ -4,6 +4,8 @@ import TableOrder from '../components/TableOrder';
 import Navbar from '../components/Navbar';
 import { api } from '../services/fechApi';
 import setToken, { getUserLocalStorage, serializeDate } from '../services/functions';
+import { DetailsContainer, StatusDetails, BoldText,
+  CheckButton, TitleDetails } from '../styles/OrderDetails';
 
 function OrderDetailsCustomer() {
   const navigate = useNavigate();
@@ -39,39 +41,41 @@ function OrderDetailsCustomer() {
   return (
     <div>
       <Navbar item1="PRODUTOS" item2="MEUS PEDIDOS" />
-      <h1>Detalhes do Pedido</h1>
-      <div>
-        <p data-testid="customer_order_details__element-order-details-label-order-id">
+      <TitleDetails>Detalhes do Pedido</TitleDetails>
+      <DetailsContainer>
+        <BoldText
+          data-testid="customer_order_details__element-order-details-label-order-id"
+        >
           {`PEDIDO ${dataSale.length !== 0 ? dataSale.id : ''}`}
-        </p>
+        </BoldText>
         <p
           data-testid="customer_order_details__element-order-details-label-seller-name"
         >
-          {`P.Vend ${dataSale.length !== 0 ? dataSale.seller.name : ''}`}
+          {`P.Vend: ${dataSale.length !== 0 ? dataSale.seller.name : ''}`}
         </p>
-        <p
+        <BoldText
           data-testid="customer_order_details__element-order-details-label-order-date"
         >
           {dataSale.length !== 0
             ? serializeDate(dataSale.saleDate) : ''}
 
-        </p>
-        <p
+        </BoldText>
+        <StatusDetails
           data-testid={
             `customer_order_details__element-order-details-label-delivery-${status}`
           }
         >
           {dataSale.length !== 0 ? dataSale.status : ''}
-        </p>
-        <button
+        </StatusDetails>
+        <CheckButton
           type="button"
           data-testid="customer_order_details__button-delivery-check"
           onClick={ handleOrderDelivered }
           disabled={ isDisabled }
         >
           MARCAR COMO ENTREGUE
-        </button>
-      </div>
+        </CheckButton>
+      </DetailsContainer>
       <div>
         <TableOrder />
       </div>
