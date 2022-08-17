@@ -12,16 +12,10 @@ function OrderDetailsCustomer() {
   const { pathname } = useLocation();
   const saleId = pathname.replace('/customer/orders/', '');
 
-  const status = 'status';
+  const stringStatus = 'status';
 
   const [dataSale, setDataSale] = useState([]);
-  const [isDisabled, setIsDisabled] = useState(true);
-
-  const handleOrderDelivered = () => {
-    console.log(dataSale.status);
-    if (dataSale.status === 'Em Trânsito') return setIsDisabled(false);
-    return setIsDisabled(true);
-  };
+  const [status, setStatus] = useState('');
 
   useEffect(() => {
     const { token } = getUserLocalStorage();
@@ -34,10 +28,16 @@ function OrderDetailsCustomer() {
       const { data } = await api.get(`/sale/${saleId}`);
 
       setDataSale(data);
+      setStatus(data.status);
     };
 
     getSaleById();
-  }, [navigate, saleId]);
+  }, [navigate, saleId, status]);
+
+  const updateStatus = async (newStatus) => {
+    await api.put(`/sale/${saleId}`, { status: newStatus });
+    setStatus(newStatus);
+  };
 
   return (
     <div>
@@ -63,7 +63,7 @@ function OrderDetailsCustomer() {
         </BoldText>
         <StatusDetails
           data-testid={
-            `customer_order_details__element-order-details-label-delivery-${status}`
+            `customer_order_details__element-order-details-label-delivery-${stringStatus}`
           }
         >
           {dataSale.length !== 0 ? dataSale.status : ''}
@@ -71,8 +71,8 @@ function OrderDetailsCustomer() {
         <CheckButton
           type="button"
           data-testid="customer_order_details__button-delivery-check"
-          onClick={ handleOrderDelivered }
-          disabled={ isDisabled }
+          onClick={ () => updateStatus('Entregue') }
+          disabled={ status !== 'Em Trânsito' }
         >
           MARCAR COMO ENTREGUE
         </CheckButton>

@@ -7,7 +7,7 @@ export const OrderContainer = styled(FormContainer)`
   background-image: none;
   justify-content: flex-start;
   height: auto;
-  margin: 1rem auto;
+  margin: 5rem auto 1rem;
   width: 90%;
 `;
 

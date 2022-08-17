@@ -24,7 +24,6 @@ function CardSalesProduct({ price, status, date, id, address, number, isSale }) 
         >
           {status}
         </Status>
-
         <ColumnContainer>
           <TextOrder>
             R$
@@ -42,17 +41,19 @@ function CardSalesProduct({ price, status, date, id, address, number, isSale }) 
           >
             {date}
           </TextOrder>
+          <div className="address">
+            {address && number && (
+              <p
+                data-testid={ `seller_orders__element-card-address-${id}` }
+              >
+                {address}
+                ,
+                {number}
+              </p>
+            )}
+          </div>
         </ColumnContainer>
       </StatusContainer>
-      {address && number && (
-        <p
-          data-testid={ `seller_orders__element-card-address-${id}` }
-        >
-          {address}
-          ,
-          {number}
-        </p>
-      )}
     </LinkCard>
   );
 }

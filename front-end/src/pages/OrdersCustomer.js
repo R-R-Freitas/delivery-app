@@ -5,6 +5,7 @@ import Navbar from '../components/Navbar';
 import { api } from '../services/fechApi';
 import setToken, { getUserLocalStorage, serializeDate } from '../services/functions';
 import { OrderContainer } from '../styles/OrderCard';
+import ContainerOrderSaller from '../styles/OrderSeller';
 
 function OrdersCustomer() {
   const navigate = useNavigate();
@@ -28,7 +29,7 @@ function OrdersCustomer() {
   }, [navigate]);
 
   return (
-    <div>
+    <ContainerOrderSaller>
       <Navbar item1="PRODUTOS" item2="MEUS PEDIDOS" />
       <OrderContainer>
         {dataSale && (
@@ -44,7 +45,7 @@ function OrdersCustomer() {
           ))
         )}
       </OrderContainer>
-    </div>
+    </ContainerOrderSaller>
   );
 }
 

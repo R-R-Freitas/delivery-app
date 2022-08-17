@@ -9,6 +9,7 @@ export const OrderContainer = styled.div`
   height: 100%;
   margin: 3rem auto;
   width: 80%;
+  
 `;
 
 export const LinkCard = styled(Link)`
@@ -17,11 +18,11 @@ export const LinkCard = styled(Link)`
   color: ${LIGTHER_GRAY2};
   border-radius: 5px;
   box-shadow: 3px 3px 10px ${LIGTH_GRAY};
-    display: flex;
+  display: flex;
   height: 6rem;
   justify-content: space-evenly;
   margin: 1rem;
-  width: 22rem;
+  width: 30%;
   text-decoration: none;
 `;
 
