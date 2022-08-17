@@ -6,6 +6,7 @@ import ProductContainer from '../components/ProductContainer';
 import setToken, { clearLocalStorage, getProductsLocalStorage,
   getUserLocalStorage } from '../services/functions';
 import { api } from '../services/fechApi';
+import ContainerProducts from '../styles/Products';
 
 function ProductsCustomer() {
   const navigate = useNavigate();
@@ -63,11 +64,12 @@ function ProductsCustomer() {
   return (
     <div>
       <Navbar item1="PRODUTOS" item2="MEUS PEDIDOS" />
-      <div>
+      <ContainerProducts>
         { products?.map((product) => (
           <ProductContainer key={ product.id } product={ product } />
         ))}
         <button
+          className="btn-car-shop"
           type="button"
           data-testid="customer_products__button-cart"
           onClick={ handleCarShop }
@@ -81,7 +83,7 @@ function ProductsCustomer() {
             {dataTotalSum.toFixed(2).replace('.', ',')}
           </span>
         </button>
-      </div>
+      </ContainerProducts>
     </div>
   );
 }
