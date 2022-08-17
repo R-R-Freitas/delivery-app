@@ -18,6 +18,7 @@ function OrderDetailsCustomer() {
   const [isDisabled, setIsDisabled] = useState(true);
 
   const handleOrderDelivered = () => {
+    console.log(dataSale.status);
     if (dataSale.status === 'Em Trânsito') return setIsDisabled(false);
     return setIsDisabled(true);
   };

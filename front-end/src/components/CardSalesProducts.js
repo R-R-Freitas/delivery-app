@@ -16,6 +16,7 @@ function CardSalesProduct({ price, status, date, id, address, number, isSale }) 
           {id}
         </span>
       </ColumnContainer>
+
       <StatusContainer>
         <Status
           data-testid={ `${
