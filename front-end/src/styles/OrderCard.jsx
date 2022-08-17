@@ -9,6 +9,7 @@ export const OrderContainer = styled.div`
   height: 100%;
   margin: 3rem auto;
   width: 80%;
+  
 `;
 
 export const LinkCard = styled(Link)`
@@ -22,7 +23,7 @@ export const LinkCard = styled(Link)`
   height: 6rem;
   justify-content: space-evenly;
   margin: 1rem;
-  width: 22rem;
+  width: 30%;
   text-decoration: none;
 `;
 
@@ -30,6 +31,7 @@ export const ColumnContainer = styled.div`
   align-items: center;
   display: flex;
   flex-direction: column;
+  
 `;
 
 export const StatusContainer = styled.div`

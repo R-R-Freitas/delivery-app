@@ -5,6 +5,7 @@ import { MIN_LENGTH_NAME, MIN_LENGTH_PASSWORD } from '../services/constants';
 import { api } from '../services/fechApi';
 import setToken, { getUserLocalStorage } from '../services/functions';
 import CardUser from '../components/CardUser';
+import { ContainerAdmin, ContainerForm, ContainerCardUser } from '../styles/AdminPage';
 
 function Admin() {
   const navigate = useNavigate();
@@ -70,10 +71,10 @@ function Admin() {
   }, [registerSuccess]);
 
   return (
-    <div>
+    <ContainerAdmin>
       <Navbar item2="GERENCIAR USUÁRIOS" />
-      <form>
-        <h1>Cadastrar novo usuário</h1>
+      <h1>Cadastrar novo usuário</h1>
+      <ContainerForm>
         <label htmlFor="name-input">
           Nome
           <input
@@ -128,14 +129,15 @@ function Admin() {
         >
           CADASTRAR
         </button>
-      </form>
+      </ContainerForm>
       { registerFailed ? (
         <p data-testid="admin_manage__element-invalid-register">
           Dados já cadastrados.
         </p>
       )
         : null }
-      <div>
+      <h2>Lista de usúarios</h2>
+      <ContainerCardUser>
         { users && users.map((user) => (
           <CardUser
             key={ user.id }
@@ -146,8 +148,8 @@ function Admin() {
             remove={ remove }
           />
         ))}
-      </div>
-    </div>
+      </ContainerCardUser>
+    </ContainerAdmin>
   );
 }
 
