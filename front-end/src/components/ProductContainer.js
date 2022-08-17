@@ -3,6 +3,7 @@ import { useDispatch } from 'react-redux';
 import PropTypes from 'prop-types';
 import setTotalSum from '../store/actions';
 import { getProductsLocalStorage } from '../services/functions';
+import CardProduct from '../styles/CardProduct';
 
 function ProductContainer({ product }) {
   const { id, name, price, urlImage } = product;
@@ -83,49 +84,57 @@ function ProductContainer({ product }) {
   }, [totalCar]);
 
   return (
-    <div>
-      <img
-        data-testid={ `customer_products__img-card-bg-image-${id}` }
-        src={ urlImage }
-        alt={ name }
-        width="80"
-      />
+    <CardProduct>
+      <div className="card-product--img">
+        <img
+          data-testid={ `customer_products__img-card-bg-image-${id}` }
+          src={ urlImage }
+          alt={ name }
+        />
+      </div>
       <p
+        className="card-product--price"
         data-testid={ `customer_products__element-card-price-${id}` }
       >
-        { Number(price).toFixed(2).replace('.', ',') }
+        { ` R$: ${Number(price).toFixed(2).replace('.', ',')}` }
       </p>
-      <p
-        data-testid={ `customer_products__element-card-title-${id}` }
+      <div
+        className="footer-card-product"
       >
-        { name }
-      </p>
-      <div>
-        <button
-          id={ id }
-          data-testid={ `customer_products__button-card-rm-item-${id}` }
-          type="button"
-          onClick={ ({ target }) => changeQuantity('decrease', target.id) }
+        <p
+          data-testid={ `customer_products__element-card-title-${id}` }
         >
-          -
-        </button>
-        <input
-          id={ id }
-          data-testid={ `customer_products__input-card-quantity-${id}` }
-          type="number"
-          value={ quantity }
-          onChange={ ({ target }) => changeQuantity('set', target.id, target.value) }
-        />
-        <button
-          id={ id }
-          data-testid={ `customer_products__button-card-add-item-${id}` }
-          type="button"
-          onClick={ ({ target }) => changeQuantity('increase', target.id) }
-        >
-          +
-        </button>
+          { name }
+        </p>
+        <div className="card-product--btns">
+          <button
+            id={ id }
+            className="button-left"
+            data-testid={ `customer_products__button-card-rm-item-${id}` }
+            type="button"
+            onClick={ ({ target }) => changeQuantity('decrease', target.id) }
+          >
+            -
+          </button>
+          <input
+            id={ id }
+            data-testid={ `customer_products__input-card-quantity-${id}` }
+            type="number"
+            value={ quantity }
+            onChange={ ({ target }) => changeQuantity('set', target.id, target.value) }
+          />
+          <button
+            id={ id }
+            className="button-right"
+            data-testid={ `customer_products__button-card-add-item-${id}` }
+            type="button"
+            onClick={ ({ target }) => changeQuantity('increase', target.id) }
+          >
+            +
+          </button>
+        </div>
       </div>
-    </div>
+    </CardProduct>
   );
 }
 
