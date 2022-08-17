@@ -4,6 +4,7 @@ import CardSalesProduct from '../components/CardSalesProducts';
 import Navbar from '../components/Navbar';
 import { api } from '../services/fechApi';
 import setToken, { getUserLocalStorage, serializeDate } from '../services/functions';
+import { OrderContainer } from '../styles/OrderCard';
 
 function OrdersCustomer() {
   const navigate = useNavigate();
@@ -29,18 +30,20 @@ function OrdersCustomer() {
   return (
     <div>
       <Navbar item1="PRODUTOS" item2="MEUS PEDIDOS" />
-      {dataSale && (
-        dataSale.map((sale) => (
-          <CardSalesProduct
-            key={ sale.id }
-            id={ sale.id }
-            price={ sale.totalPrice }
-            status={ sale.status }
-            date={ serializeDate(sale.saleDate) }
-            isSale={ false }
-          />
-        ))
-      )}
+      <OrderContainer>
+        {dataSale && (
+          dataSale.map((sale) => (
+            <CardSalesProduct
+              key={ sale.id }
+              id={ sale.id }
+              price={ sale.totalPrice }
+              status={ sale.status }
+              date={ serializeDate(sale.saleDate) }
+              isSale={ false }
+            />
+          ))
+        )}
+      </OrderContainer>
     </div>
   );
 }

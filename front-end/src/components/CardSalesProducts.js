@@ -1,53 +1,58 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Link } from 'react-router-dom';
+import { ColumnContainer, LinkCard,
+  StatusContainer, Status, TextOrder } from '../styles/OrderCard';
 
 function CardSalesProduct({ price, status, date, id, address, number, isSale }) {
-  console.log(isSale);
-
   return (
-    <Link to={ `/${isSale ? 'seller' : 'customer'}/orders/${id}` }>
-      <div>
-        <p
+    <LinkCard to={ `/${isSale ? 'seller' : 'customer'}/orders/${id}` }>
+      <ColumnContainer>
+        Pedido
+        {' '}
+        <span
           data-testid={ `${
             isSale ? 'seller' : 'customer'}_orders__element-order-id-${id}` }
         >
           {id}
-        </p>
-        <p>
-          R$:
-          {' '}
-          <span
-            data-testid={ `${
-              isSale ? 'seller' : 'customer'}_orders__element-card-price-${id}` }
-          >
-            {Number(price).toFixed(2).replace('.', ',')}
-          </span>
-        </p>
-        <p
+        </span>
+      </ColumnContainer>
+      <StatusContainer>
+        <Status
           data-testid={ `${
             isSale ? 'seller' : 'customer'}_orders__element-delivery-status-${id}` }
         >
           {status}
-        </p>
-        <p
-          data-testid={ `${
-            isSale ? 'seller' : 'customer'}_orders__element-order-date-${id}` }
-        >
-          {date}
-        </p>
-        {address && number && (
-          <p
-            data-testid={ `seller_orders__element-card-address-${id}` }
-          >
-            {address}
-            ,
-            {number}
-          </p>
-        )}
+        </Status>
 
-      </div>
-    </Link>
+        <ColumnContainer>
+          <TextOrder>
+            R$
+            {' '}
+            <span
+              data-testid={ `${
+                isSale ? 'seller' : 'customer'}_orders__element-card-price-${id}` }
+            >
+              {Number(price).toFixed(2).replace('.', ',')}
+            </span>
+          </TextOrder>
+          <TextOrder
+            data-testid={ `${
+              isSale ? 'seller' : 'customer'}_orders__element-order-date-${id}` }
+          >
+            {date}
+          </TextOrder>
+        </ColumnContainer>
+      </StatusContainer>
+      {address && number && (
+        <p
+          data-testid={ `seller_orders__element-card-address-${id}` }
+        >
+          {address}
+          ,
+          {number}
+        </p>
+      )}
+    </LinkCard>
   );
 }
 

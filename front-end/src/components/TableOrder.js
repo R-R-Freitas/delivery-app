@@ -3,6 +3,9 @@ import { useDispatch, useSelector } from 'react-redux';
 import PropTypes from 'prop-types';
 import { getCarShopLocalStorage } from '../services/functions';
 import setTotalSum from '../store/actions';
+import { OrderContainer, RemoveButton, TableBody, TableContainer, TableHeader,
+  TitleCheckout,
+  TotalButton } from '../styles/TableOrders';
 
 function TableOrder({ isCheckout, isSale }) {
   const dispatch = useDispatch();
@@ -78,17 +81,17 @@ function TableOrder({ isCheckout, isSale }) {
   }, [totalCar]);
 
   return (
-    <div>
-      {isCheckout ? <h2>Finalizar Pedido</h2> : ''}
-      <table>
-        <thead>
+    <OrderContainer>
+      {isCheckout ? <TitleCheckout>Finalizar Pedido</TitleCheckout> : ''}
+      <TableContainer>
+        <TableHeader>
           <tr>
             {CheckoutTitles.map((title) => (
               <th key={ title }>{title}</th>
             ))}
           </tr>
-        </thead>
-        <tbody>
+        </TableHeader>
+        <TableBody>
           {productsWithQtt?.map(({ id, name, price, quantity }, index) => (
             <tr key={ id }>
               <td
@@ -159,7 +162,7 @@ function TableOrder({ isCheckout, isSale }) {
               </td>
               {haveButton && (
                 <td>
-                  <button
+                  <RemoveButton
                     type="button"
                     id={ id }
                     data-testid={
@@ -168,14 +171,14 @@ function TableOrder({ isCheckout, isSale }) {
                     onClick={ ({ target }) => handleRemoveProduct(target.id) }
                   >
                     Remover
-                  </button>
+                  </RemoveButton>
                 </td>
               )}
             </tr>
           ))}
-        </tbody>
-      </table>
-      <button type="button" data-testid="customer_products__button-cart">
+        </TableBody>
+      </TableContainer>
+      <TotalButton type="button" data-testid="customer_products__button-cart">
         Total: R$
         {' '}
         <span
@@ -190,8 +193,8 @@ function TableOrder({ isCheckout, isSale }) {
         >
           {dataTotalSum.toFixed(2).replace('.', ',')}
         </span>
-      </button>
-    </div>
+      </TotalButton>
+    </OrderContainer>
   );
 }
 
