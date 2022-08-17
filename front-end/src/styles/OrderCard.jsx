@@ -1,6 +1,6 @@
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
-import { BEIGE, BEIGE2, LIGTH_BEIGE, LIGTH_GRAY, YELLOW } from './Colors';
+import { BEIGE, BEIGE2, LIGTHER_GRAY2, LIGTH_GRAY, YELLOW } from './Colors';
 
 export const OrderContainer = styled.div`
   display: flex;
@@ -34,7 +34,7 @@ export const ColumnContainer = styled.div`
 
 export const StatusContainer = styled.div`
   align-items: center;
-  background-color: ${LIGTH_BEIGE};
+  background-color: ${LIGTHER_GRAY2};
   border-left: 1px solid ${LIGTH_GRAY};
   border-top-right-radius: 5px;
   display: flex;
