@@ -9,6 +9,7 @@ const ContainerProducts = styled.div`
 
     max-width: 1366px;
     margin: 0 auto;
+    margin-top: 5rem;
 
     padding-top: 40px;
     padding-bottom: 40px;

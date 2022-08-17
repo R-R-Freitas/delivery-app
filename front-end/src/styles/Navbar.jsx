@@ -10,6 +10,11 @@ export const NavContainer = styled.div`
   justify-content: space-around;
   padding: 0 1rem;
   width: calc(100% - 2rem);
+
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
 `;
 
 export const NavLink = styled(Link)`
