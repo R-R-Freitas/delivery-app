@@ -7,6 +7,8 @@ function Navbar({ item1, item2, item3 }) {
   const navigate = useNavigate();
   const dataUser = getUserLocalStorage();
 
+  console.log(dataUser.role);
+
   const handleLogout = () => {
     clearLocalStorage();
 
@@ -22,7 +24,7 @@ function Navbar({ item1, item2, item3 }) {
         { item1 }
       </Link>
       <Link
-        to="/customer/orders"
+        to={ dataUser.role === 'customer' ? '/customer/orders' : '/seller/orders' }
         data-testid="customer_products__element-navbar-link-orders"
       >
         { item2 }
