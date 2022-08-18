@@ -28,6 +28,11 @@ export const Form = styled.div`
   justify-content: center;
   padding: 1rem;
   width: 20rem;
+
+  img {
+    margin-bottom: 5px;
+    width: 10rem;
+  }
 `;
 
 export const Label = styled.label`
@@ -60,4 +65,8 @@ export const Button = styled.button`
 export const ErrorMessage = styled.p`
   color: ${REDDISH_BROWN};
   margin-top: 0.3rem;
+`;
+
+export const logoImg = styled.img`
+  
 `;

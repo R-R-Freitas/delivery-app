@@ -5,6 +5,7 @@ import { api } from '../services/fechApi';
 import { saveLocalStorage } from '../services/functions';
 import { Button, ErrorMessage, Form, FormContainer, Input,
   Label, Title } from '../styles/Login';
+import logo from '../images/logo-2.png';
 
 function Register() {
   const navigate = useNavigate();
@@ -46,6 +47,7 @@ function Register() {
   return (
     <FormContainer>
       <Form>
+        <img src={ logo } alt="logo" />
         <Title>Cadastro</Title>
         <Label htmlFor="name-input">
           Nome
