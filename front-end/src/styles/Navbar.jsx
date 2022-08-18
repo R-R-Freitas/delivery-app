@@ -30,10 +30,6 @@ export const NavLink = styled(Link)`
 export const NavName = styled.p`
   color: ${LIGHTER_BROWN};
   font-size: 1.5rem;
-
-  :hover {
-    color: ${RED};
-  }
 `;
 
 export const NavButton = styled.button`

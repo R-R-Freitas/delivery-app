@@ -1,6 +1,7 @@
 import styled from 'styled-components';
 import { InputsContainer, TitleDelivery } from './CheckoutForm';
-import { BEIGE2, LIGTHER_GRAY, YELLOW } from './Colors';
+import { BEIGE2, LIGHT_BROWN, LIGTHER_GRAY, LIGTH_GRAY, REDDISH_BROWN,
+  YELLOW } from './Colors';
 import { Status } from './OrderCard';
 
 export const DetailsContainer = styled(InputsContainer)`
@@ -35,6 +36,17 @@ export const CheckButton = styled.button`
   padding: 0.2rem 0.5rem;
 `;
 
+export const MakeButton = styled(CheckButton)`
+  background-color: ${LIGHT_BROWN};
+  color: white;
+  font-weight: bold;
+`;
+
+export const DeliveryButton = styled(MakeButton)`
+  background-color: ${({ disabled }) => (disabled
+    ? `${LIGTH_GRAY}` : `${REDDISH_BROWN}`)};
+`;
+
 export const TitleDetails = styled(TitleDelivery)`
-  margin: 1rem 0 1rem 4rem;
+  margin: 6rem 0 1rem 5.5rem;
 `;
