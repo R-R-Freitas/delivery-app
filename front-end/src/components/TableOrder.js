@@ -81,7 +81,7 @@ function TableOrder({ isCheckout, isSale }) {
   }, [totalCar]);
 
   return (
-    <OrderContainer>
+    <OrderContainer checkout={ isCheckout }>
       {isCheckout ? <TitleCheckout>Finalizar Pedido</TitleCheckout> : ''}
       <TableContainer>
         <TableHeader>

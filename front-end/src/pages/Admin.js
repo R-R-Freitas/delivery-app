@@ -5,8 +5,8 @@ import { MIN_LENGTH_NAME, MIN_LENGTH_PASSWORD } from '../services/constants';
 import { api } from '../services/fechApi';
 import setToken, { getUserLocalStorage } from '../services/functions';
 import CardUser from '../components/CardUser';
-import { ContainerAdmin, ContainerForm, ContainerCardUser } from '../styles/AdminPage';
-import { TitleDetails } from '../styles/OrderDetails';
+import { ContainerAdmin, ContainerForm, ContainerCardUser,
+  TitleAdmin } from '../styles/AdminPage';
 
 function Admin() {
   const navigate = useNavigate();
@@ -74,7 +74,7 @@ function Admin() {
   return (
     <ContainerAdmin>
       <Navbar item2="GERENCIAR USUÁRIOS" />
-      <TitleDetails>Cadastrar novo usuário</TitleDetails>
+      <TitleAdmin>Cadastrar novo usuário</TitleAdmin>
       <ContainerForm>
         <label htmlFor="name-input">
           Nome
@@ -137,7 +137,7 @@ function Admin() {
         </p>
       )
         : null }
-      <TitleDetails>Lista de usúarios</TitleDetails>
+      <TitleAdmin>Lista de usúarios</TitleAdmin>
       <ContainerCardUser>
         { users && users.map((user) => (
           <CardUser

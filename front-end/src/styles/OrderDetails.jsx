@@ -36,5 +36,5 @@ export const CheckButton = styled.button`
 `;
 
 export const TitleDetails = styled(TitleDelivery)`
-  margin: 1rem 0 1rem 4rem;
+  margin: 6rem 0 1rem 5.5rem;
 `;

@@ -7,7 +7,7 @@ export const OrderContainer = styled(FormContainer)`
   background-image: none;
   justify-content: flex-start;
   height: auto;
-  margin: 5rem auto 1rem;
+  margin: ${({ checkout }) => (checkout ? '5rem auto 1rem' : '1rem auto 1rem')};
   width: 90%;
 `;
 
