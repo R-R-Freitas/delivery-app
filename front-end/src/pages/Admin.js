@@ -78,7 +78,7 @@ function Admin() {
         <label htmlFor="name-input">
           Nome
           <input
-            id="name"
+            id="name-input"
             data-testid="admin_manage__input-name"
             type="text"
             value={ name }
@@ -90,8 +90,9 @@ function Admin() {
         <label htmlFor="email-input">
           Email
           <input
+            id="email-input"
             data-testid="admin_manage__input-email"
-            type="text"
+            type="email"
             value={ email }
             onChange={ ({ target: { value } }) => setEmail(value) }
             placeholder="seu-email@site.com.br"
@@ -101,6 +102,7 @@ function Admin() {
         <label htmlFor="password-input">
           Senha
           <input
+            id="password-input"
             data-testid="admin_manage__input-password"
             type="password"
             value={ password }
@@ -112,6 +114,7 @@ function Admin() {
         <label htmlFor="role-input">
           Tipo
           <select
+            id="role-input"
             data-testid="admin_manage__select-role"
             value={ role }
             onChange={ ({ target: { value } }) => setRole(value) }

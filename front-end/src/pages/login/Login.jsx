@@ -24,7 +24,6 @@ function Login() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     const user = await signIn(email, password);
-
     if (user) {
       saveLocalStorage(user);
 
@@ -62,6 +61,7 @@ function Login() {
         <Label htmlFor="password-input">
           Password
           <Input
+            id="password-input"
             type="password"
             data-testid="common_login__input-password"
             placeholder="******"

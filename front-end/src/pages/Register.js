@@ -50,6 +50,7 @@ function Register() {
         <Label htmlFor="name-input">
           Nome
           <Input
+            id="name-input"
             data-testid="common_register__input-name"
             type="text"
             value={ name }
@@ -61,6 +62,7 @@ function Register() {
         <Label htmlFor="email-input">
           Email
           <Input
+            id="email-input"
             data-testid="common_register__input-email"
             type="text"
             value={ email }
@@ -72,6 +74,7 @@ function Register() {
         <Label htmlFor="password-input">
           Senha
           <Input
+            id="password-input"
             data-testid="common_register__input-password"
             type="password"
             value={ password }
