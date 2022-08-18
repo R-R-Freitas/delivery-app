@@ -19,18 +19,31 @@ export const LinkCard = styled(Link)`
   border-radius: 5px;
   box-shadow: 3px 3px 10px ${LIGTH_GRAY};
   display: flex;
-  height: 6rem;
+  flex-direction: column;
+  height: 14rem;
   justify-content: space-evenly;
   margin: 1rem;
-  width: 30%;
+  padding-top: 0.5rem;
+  width: 22rem;
   text-decoration: none;
+
+  .address {
+    align-items: center;
+    display: flex;
+    justify-content: center;
+  }
 `;
 
-export const ColumnContainer = styled.div`
+export const OrderNumber = styled.div`
   align-items: center;
+  align-content: stretch;
   display: flex;
-  flex-direction: column;
-  font-size: 1.2rem;
+  justify-content: space-evenly;
+
+  font-size: 1.7rem;
+
+  margin-bottom: 8px;
+  width: 15rem;
 
   span {
     font-weight: bold;
@@ -40,19 +53,30 @@ export const ColumnContainer = styled.div`
 export const StatusContainer = styled.div`
   align-items: center;
   background-color: ${LIGTHER_GRAY2};
-  border-left: 1px solid ${LIGTH_GRAY};
-  border-top-right-radius: 5px;
   color: #342723;
+  
   display: flex;
-  height: 100%;
-  margin-right: -8%;
-  padding-right: 0.6em;
+  justify-content: space-evenly;
+  padding: 0.6em 0;
+  width: 100%;
+`;
+
+export const ColumnContainer = styled.div`
+  align-items: center;
+  align-content: stretch;
+  display: flex;
+  flex-direction: column; 
+  justify-content: space-evenly;
+
+  font-size: 1.7rem;
+  margin-bottom: 8px;
+
 `;
 
 export const Status = styled.p`
   background-color: ${YELLOW};
   border-radius: 5px;
-  font-size: 1.2rem;
+  font-size: 1.6rem;
   font-weight: bold;
   margin: auto 5px;
   padding: 0.8em;
@@ -60,7 +84,7 @@ export const Status = styled.p`
 
 export const TextOrder = styled(Status)`
   background-color: ${BEIGE};
-  font-size: 1rem;
+  font-size: 1.2rem;
   margin: 5px;
   padding: 0.3em;
 `;

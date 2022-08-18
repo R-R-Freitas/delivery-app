@@ -1,12 +1,12 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { ColumnContainer, LinkCard,
-  StatusContainer, Status, TextOrder } from '../styles/OrderCard';
+  StatusContainer, Status, TextOrder, OrderNumber } from '../styles/OrderCard';
 
 function CardSalesProduct({ price, status, date, id, address, number, isSale }) {
   return (
     <LinkCard to={ `/${isSale ? 'seller' : 'customer'}/orders/${id}` }>
-      <ColumnContainer>
+      <OrderNumber>
         Pedido
         {' '}
         <span
@@ -15,7 +15,7 @@ function CardSalesProduct({ price, status, date, id, address, number, isSale }) 
         >
           {id}
         </span>
-      </ColumnContainer>
+      </OrderNumber>
 
       <StatusContainer>
         <Status
@@ -24,6 +24,7 @@ function CardSalesProduct({ price, status, date, id, address, number, isSale }) 
         >
           {status}
         </Status>
+
         <ColumnContainer>
           <TextOrder>
             R$
@@ -41,19 +42,19 @@ function CardSalesProduct({ price, status, date, id, address, number, isSale }) 
           >
             {date}
           </TextOrder>
-          <div className="address">
-            {address && number && (
-              <p
-                data-testid={ `seller_orders__element-card-address-${id}` }
-              >
-                {address}
-                ,
-                {number}
-              </p>
-            )}
-          </div>
         </ColumnContainer>
       </StatusContainer>
+      <div className="address">
+        {address && number && (
+          <p
+            data-testid={ `seller_orders__element-card-address-${id}` }
+          >
+            {address}
+            ,
+            {number}
+          </p>
+        )}
+      </div>
     </LinkCard>
   );
 }
