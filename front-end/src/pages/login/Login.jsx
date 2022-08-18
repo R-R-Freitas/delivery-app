@@ -1,11 +1,13 @@
 /* eslint-disable jsx-a11y/label-has-associated-control */
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
+// import logo from 'logo-1.png';
 import { MIN_LENGTH_PASSWORD } from '../../services/constants';
 import signIn from '../../services/fechApi';
 import { getUserLocalStorage, saveLocalStorage } from '../../services/functions';
 import { Button, ErrorMessage, Form, FormContainer,
   Input, Label, Title } from '../../styles/Login';
+import logo from '../../images/logo-2.png';
 
 function Login() {
   const navigate = useNavigate();
@@ -47,6 +49,7 @@ function Login() {
   return (
     <FormContainer>
       <Form>
+        <img src={ logo } alt="logo" />
         <Title>Login</Title>
         <Label htmlFor="email-input">
           Email
