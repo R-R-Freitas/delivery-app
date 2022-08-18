@@ -5,7 +5,7 @@ import Navbar from '../components/Navbar';
 import { api } from '../services/fechApi';
 import setToken, { getUserLocalStorage, serializeDate } from '../services/functions';
 import { DetailsContainer, StatusDetails, BoldText,
-  CheckButton, TitleDetails } from '../styles/OrderDetails';
+  TitleDetails, DeliveryButton } from '../styles/OrderDetails';
 
 function OrderDetailsCustomer() {
   const navigate = useNavigate();
@@ -68,14 +68,14 @@ function OrderDetailsCustomer() {
         >
           {dataSale.length !== 0 ? dataSale.status : ''}
         </StatusDetails>
-        <CheckButton
+        <DeliveryButton
           type="button"
           data-testid="customer_order_details__button-delivery-check"
           onClick={ () => updateStatus('Entregue') }
           disabled={ status !== 'Em Trânsito' }
         >
           MARCAR COMO ENTREGUE
-        </CheckButton>
+        </DeliveryButton>
       </DetailsContainer>
       <div>
         <TableOrder />
