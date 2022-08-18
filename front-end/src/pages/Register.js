@@ -49,7 +49,7 @@ function Register() {
         <Title>Cadastro</Title>
         <Label htmlFor="name-input">
           Nome
-          <input
+          <Input
             id="name-input"
             data-testid="common_register__input-name"
             type="text"
@@ -61,7 +61,7 @@ function Register() {
 
         <Label htmlFor="email-input">
           Email
-          <input
+          <Input
             id="email-input"
             data-testid="common_register__input-email"
             type="text"
@@ -73,7 +73,7 @@ function Register() {
 
         <Label htmlFor="password-input">
           Senha
-          <input
+          <Input
             id="password-input"
             data-testid="common_register__input-password"
             type="password"

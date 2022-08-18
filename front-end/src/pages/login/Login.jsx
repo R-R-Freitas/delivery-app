@@ -60,7 +60,7 @@ function Login() {
         </Label>
         <Label htmlFor="password-input">
           Password
-          <input
+          <Input
             id="password-input"
             type="password"
             data-testid="common_login__input-password"
