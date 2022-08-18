@@ -1,25 +1,30 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import ContainerCardAdmin from '../styles/CardUserAdmin';
 
 function CardUser({ id, name, email, role, remove }) {
   return (
-    <div>
+    <ContainerCardAdmin>
       <p
+        className="card-size grow-0 color1"
         data-testid={ `admin_manage__element-user-table-item-number-${id}` }
       >
         {id}
       </p>
       <p
+        className="card-size grow-1 color2"
         data-testid={ `admin_manage__element-user-table-name-${id}` }
       >
         {name}
       </p>
       <p
+        className="card-size grow-1"
         data-testid={ `admin_manage__element-user-table-email-${id}` }
       >
         {email}
       </p>
       <p
+        className="card-size grow-1"
         data-testid={ `admin_manage__element-user-table-role-${id}` }
       >
         {role}
@@ -31,7 +36,7 @@ function CardUser({ id, name, email, role, remove }) {
       >
         Excluir
       </button>
-    </div>
+    </ContainerCardAdmin>
   );
 }
 

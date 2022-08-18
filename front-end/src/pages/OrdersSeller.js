@@ -3,7 +3,8 @@ import { useNavigate } from 'react-router-dom';
 import { api } from '../services/fechApi';
 import CardSalesProduct from '../components/CardSalesProducts';
 import Navbar from '../components/Navbar';
-import setToken, { getUserLocalStorage } from '../services/functions';
+import setToken, { getUserLocalStorage, serializeDate } from '../services/functions';
+import ContainerOrderSaller from '../styles/OrderSeller';
 
 function OrdersSeller() {
   const navigate = useNavigate();
@@ -25,7 +26,7 @@ function OrdersSeller() {
   }, [navigate]);
 
   return (
-    <div>
+    <ContainerOrderSaller>
       <Navbar item1="PRODUTOS" item2="MEUS PEDIDOS" />
       {sallers && sallers.map((sale) => (
         <CardSalesProduct
@@ -34,12 +35,12 @@ function OrdersSeller() {
           price={ sale.totalPrice }
           address={ sale.deliveryAddress }
           number={ sale.deliveryNumber }
-          date={ sale.saleDate }
+          date={ serializeDate(sale.saleDate) }
           status={ sale.status }
           isSale
         />
       ))}
-    </div>
+    </ContainerOrderSaller>
   );
 }
 

@@ -38,8 +38,8 @@ const update = async (req, _res, next) => {
   const { status } = req.body;
   if (!validStatus.includes(status)) throw errorObject(400, 'Dados inválidos');
   const { id } = req.params;
-  const { role } = req.user;
-  if (role === 'customer') throw errorObject(403, 'Não Autorizado');
+ /*  const { role } = req.user;
+  if (role === 'customer') throw errorObject(403, 'Não Autorizado'); */
   const sale = await saleService.update(id, status);
   req.sale = sale;
   next();

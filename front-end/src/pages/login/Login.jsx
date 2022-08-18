@@ -1,8 +1,11 @@
+/* eslint-disable jsx-a11y/label-has-associated-control */
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { MIN_LENGTH_PASSWORD } from '../../services/constants';
 import signIn from '../../services/fechApi';
 import { getUserLocalStorage, saveLocalStorage } from '../../services/functions';
+import { Button, ErrorMessage, Form, FormContainer,
+  Input, Label, Title } from '../../styles/Login';
 
 function Login() {
   const navigate = useNavigate();
@@ -42,50 +45,52 @@ function Login() {
   }, [navigate]);
 
   return (
-    <div>
-      <h1>Login</h1>
-      <form>
-        <label htmlFor="email-input">
+    <FormContainer>
+      <Form>
+        <Title>Login</Title>
+        <Label htmlFor="email-input">
           Email
-          <input
+          <Input
             type="email"
             data-testid="common_login__input-email"
+            placeholder="seu-email@site.com.br"
             value={ email }
             onChange={ (e) => setEmail(e.target.value) }
           />
-        </label>
-        <label htmlFor="password-input">
+        </Label>
+        <Label htmlFor="password-input">
           Password
           <input
             id="password-input"
             type="password"
             data-testid="common_login__input-password"
+            placeholder="******"
             value={ password }
             onChange={ (e) => setPassword(e.target.value) }
           />
-        </label>
-        <button
+        </Label>
+        <Button
           type="submit"
           data-testid="common_login__button-login"
           disabled={ !btnIsValid }
           onClick={ handleSubmit }
         >
           LOGIN
-        </button>
-        <button
+        </Button>
+        <Button
           data-testid="common_login__button-register"
           type="button"
           onClick={ () => routeChange() }
         >
           Ainda não tenho conta
-        </button>
+        </Button>
         {error && (
-          <p data-testid="common_login__element-invalid-email">
-            Dados não cadastrados.
-          </p>
+          <ErrorMessage data-testid="common_login__element-invalid-email">
+            ⚠️ Dados não cadastrados.
+          </ErrorMessage>
         )}
-      </form>
-    </div>
+      </Form>
+    </FormContainer>
   );
 }
 
