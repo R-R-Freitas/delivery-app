@@ -4,6 +4,8 @@ import Navbar from '../components/Navbar';
 import TableOrder from '../components/TableOrder';
 import { api } from '../services/fechApi';
 import setToken, { getUserLocalStorage, serializeDate } from '../services/functions';
+import { BoldText, DeliveryButton, DetailsContainer, MakeButton, StatusDetails,
+  TitleDetails } from '../styles/OrderDetails';
 
 function OrderDetailsSeller() {
   const navigate = useNavigate();
@@ -40,40 +42,42 @@ function OrderDetailsSeller() {
   return (
     <div>
       <Navbar item2="PEDIDOS" />
-      <h1>Detalhes do Pedido</h1>
-      <div>
-        <p data-testid="seller_order_details__element-order-details-label-order-id">
+      <TitleDetails>Detalhes do Pedido</TitleDetails>
+      <DetailsContainer>
+        <BoldText
+          data-testid="seller_order_details__element-order-details-label-order-id"
+        >
           {`PEDIDO ${dataSale.length !== 0 ? dataSale.id : ''}`}
-        </p>
-        <p
+        </BoldText>
+        <BoldText
           data-testid="seller_order_details__element-order-details-label-order-date"
         >
           {dataSale.length !== 0
             ? serializeDate(dataSale.saleDate) : ''}
 
-        </p>
-        <p
+        </BoldText>
+        <StatusDetails
           data-testid="seller_order_details__element-order-details-label-delivery-status}"
         >
           {dataSale.length !== 0 ? dataSale.status : ''}
-        </p>
-        <button
+        </StatusDetails>
+        <MakeButton
           type="button"
           data-testid="seller_order_details__button-preparing-check"
           disabled={ status !== 'Pendente' }
           onClick={ () => updateStatus('Preparando') }
         >
           PREPARAR PEDIDO
-        </button>
-        <button
+        </MakeButton>
+        <DeliveryButton
           type="button"
           data-testid="seller_order_details__button-dispatch-check"
           disabled={ status !== 'Preparando' }
           onClick={ () => updateStatus('Em Trânsito') }
         >
           SAIU PARA ENTREGA
-        </button>
-      </div>
+        </DeliveryButton>
+      </DetailsContainer>
       <div>
         <TableOrder isSale />
       </div>

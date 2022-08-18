@@ -49,9 +49,7 @@ function CardSalesProduct({ price, status, date, id, address, number, isSale }) 
           <p
             data-testid={ `seller_orders__element-card-address-${id}` }
           >
-            {address}
-            ,
-            {number}
+            {`${address}, ${number}`}
           </p>
         )}
       </div>

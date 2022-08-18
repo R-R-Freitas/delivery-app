@@ -5,6 +5,7 @@ import CardSalesProduct from '../components/CardSalesProducts';
 import Navbar from '../components/Navbar';
 import setToken, { getUserLocalStorage, serializeDate } from '../services/functions';
 import ContainerOrderSaller from '../styles/OrderSeller';
+import { OrderContainer } from '../styles/OrderCard';
 
 function OrdersSeller() {
   const navigate = useNavigate();
@@ -28,18 +29,20 @@ function OrdersSeller() {
   return (
     <ContainerOrderSaller>
       <Navbar item1="PRODUTOS" item2="MEUS PEDIDOS" />
-      {sallers && sallers.map((sale) => (
-        <CardSalesProduct
-          key={ sale.id }
-          id={ sale.id }
-          price={ sale.totalPrice }
-          address={ sale.deliveryAddress }
-          number={ sale.deliveryNumber }
-          date={ serializeDate(sale.saleDate) }
-          status={ sale.status }
-          isSale
-        />
-      ))}
+      <OrderContainer>
+        {sallers && sallers.map((sale) => (
+          <CardSalesProduct
+            key={ sale.id }
+            id={ sale.id }
+            price={ sale.totalPrice }
+            address={ sale.deliveryAddress }
+            number={ sale.deliveryNumber }
+            date={ serializeDate(sale.saleDate) }
+            status={ sale.status }
+            isSale
+          />
+        ))}
+      </OrderContainer>
     </ContainerOrderSaller>
   );
 }
