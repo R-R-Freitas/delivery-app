@@ -13,7 +13,7 @@ App de delivery para uma distribuidora de bebidas. Nele é possível para:
 [Guilherme Leite](https://github.com/guilherme-leite)  
   
 ## Minha participação:  
-No projeto fiquei responsável pela configuração do Docker, criação do banco de dados através do sequelize (exceto seeders), desenvolvimento de toda a parte de back-end, além dos componentes da tabela de usuários na página da pessoa administradora e dos testes de front-end.  
+No projeto fiquei responsável pela configuração do Docker, criação do banco de dados através do sequelize (exceto seeders), desenvolvimento de toda a parte de back-end, além dos componentes da tabela de usuários na página da pessoa administradora e dos testes no front-end.  
   
 ## Tecnologias utilizadas:  
 <details>  
@@ -35,7 +35,8 @@ No projeto fiquei responsável pela configuração do Docker, criação do banco
 ## Rodando a aplicação
   
 <details>  
-  <summary>Clique para expandir</summary>
+  <summary>Clique para expandir</summary>  
+  
   Você pode rodar a aplicação na sua máquina através do terminal, na pasta onde será instalada:  
   
 ```
@@ -45,47 +46,54 @@ npm install
 npm run compose-up-dev
 ```  
 </details>  
-
+  
 ### Ponto de partida do desenvolvimento:  
-(Ou: créditos à participação da Trybe no projeto)  
+Ou: créditos à participação da Trybe no projeto  
 <details>  
   <summary>Clique para expandir</summary>  
+  
   A Trybe disponibilizou um projeto apenas com configurações iniciais para o projeto, uma vez que essas configurações eram necessárias para o bom funcionamento das ferramentas de avaliação.  
+  
   Desses arquivos, muitos precisaram ser removidos para publicação em repositório público, em cumprimento ao disposto no **Manual da Pessoa Estudante** e nos **Termos de Uso da Trybe**.  
+  
   Os demais arquivos disponibilizados inicialmente e que não foram substancialmente alterados, são portanto de autoria exclusiva da Trybe. Abaixo é possível ver a lista dos mesmos:  
-  <details>
-    <summary>Clique aqui para expandir</summary>
-      * .editorconfig  
-      * .gitignore  
-      * .npmrc  
-      * data-testids.txt  
-      * pm2.dev.config.yml  
-      * pm2.test.config.yml  
-      * back-end/.eslintignore  
-      * back-end/.eslintrc.json  
-      * back-end/.gitignore  
-      * back-end/.sequelizerc  
-      * back-end/jwt.evaluation.key  
-      * back-end/nyc.config.js  
-      * back-end/src/api/server.js  
-      * back-end/src/database/config/config.js  
-      * back-end/src/database/models/index.js  
-      * front-end/.env.example  
-      * front-end/.eslintignore  
-      * front-end/.eslintrc.json  
-      * front-end/.gitignore  
-      * front-end/.stylelintignore  
-      * front-end/.stylelintrc.json  
-      * front-end/public/favicon.ico  
-      * front-end/public/index.html  
-      * front-end/public/logo192.png  
-      * front-end/public/logo512.png  
-      * front-end/public/manifest.json  
-      * front-end/public/robots.txt  
-      * front-end/src/images/rockGlass.svg  
-      * front-end/src/index.css  
-      * front-end/src/reportWebVitals.js  
-      * front-end/src/setupTests.js  
-      * scripts/*  
-  </details>
+  
+  <details>  
+    <summary>Clique aqui para expandir</summary>  
+    
+      .editorconfig  
+      .gitignore  
+      .npmrc  
+      data-testids.txt  
+      pm2.dev.config.yml  
+      pm2.test.config.yml  
+      back-end/.eslintignore  
+      back-end/.eslintrc.json  
+      back-end/.gitignore  
+      back-end/.sequelizerc  
+      back-end/jwt.evaluation.key  
+      back-end/nyc.config.js  
+      back-end/src/api/server.js  
+      back-end/src/database/config/config.js  
+      back-end/src/database/models/index.js  
+      front-end/.env.example  
+      front-end/.eslintignore  
+      front-end/.eslintrc.json  
+      front-end/.gitignore  
+      front-end/.stylelintignore  
+      front-end/.stylelintrc.json  
+      front-end/public/favicon.ico  
+      front-end/public/index.html  
+      front-end/public/logo192.png  
+      front-end/public/logo512.png  
+      front-end/public/manifest.json  
+      front-end/public/robots.txt  
+      front-end/src/images/rockGlass.svg  
+      front-end/src/index.css  
+      front-end/src/reportWebVitals.js  
+      front-end/src/setupTests.js  
+      scripts/*  
+  </details>  
+  
 </details>  
+
