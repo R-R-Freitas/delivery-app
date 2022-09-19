@@ -51,8 +51,8 @@ npm run compose-up-dev
 <details>  
   <summary>Clique para expandir</summary>  
   A Trybe disponibilizou um projeto apenas com configurações iniciais para o projeto, uma vez que essas configurações eram necessárias para o bom funcionamento das ferramentas de avaliação.  
-  Desses arquivos, muitos precisaram ser removidos para publicação em repositório público, em cumprimento ao disposto no Manual da Pessoa Estudante e nos Termos de Uso da Trybe.  
-  Os demais arquivos disponibilizados inicialmente e que não foram substancialmente alterados, são portanto de autoria exclusiva da Trybe. Abaixo é possível ver a lista dos mesmos:
+  Desses arquivos, muitos precisaram ser removidos para publicação em repositório público, em cumprimento ao disposto no **Manual da Pessoa Estudante** e nos **Termos de Uso da Trybe**.  
+  Os demais arquivos disponibilizados inicialmente e que não foram substancialmente alterados, são portanto de autoria exclusiva da Trybe. Abaixo é possível ver a lista dos mesmos:  
   <details>
     <summary>Clique aqui para expandir</summary>
       * .editorconfig  
